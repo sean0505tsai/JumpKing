@@ -25,8 +25,23 @@ void CGameStateRun::OnBeginState()
 {
 }
 
+bool isOverlap(CMovingBitmap obj1, CMovingBitmap obj2)
+{
+
+	// If one rectangle is on left side of other
+	if (l1.x > r2.x || l2.x > r1.x)
+		return false;
+
+	// If one rectangle is above other
+	if (r1.y > l2.y || r2.y > l1.y)
+		return false;
+
+	return true;
+}
+
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
+	if(character.)
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -47,7 +62,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	});
 	background.SetTopLeft(0, 0);
 
-	character.LoadBitmapByString({ "resources/gray.bmp" });
+	character.LoadBitmapByString({ "resources/giraffe.bmp" }, RGB(255, 255, 255));
 	character.SetTopLeft(150, 265);
 
 	chest_and_key.LoadBitmapByString({ "resources/chest.bmp", "resources/chest_ignore.bmp" }, RGB(255, 255, 255));
@@ -118,6 +133,22 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
+	}
+	
+	if (nChar == VK_UP) {
+		character.SetTopLeft(character.Left(), character.Top() - 10);
+	}
+
+	if (nChar == VK_DOWN) {
+		character.SetTopLeft(character.Left(), character.Top() + 10);
+	}
+
+	if (nChar == VK_LEFT) {
+		character.SetTopLeft(character.Left() - 10, character.Top());
+	}
+
+	if (nChar == VK_RIGHT) {
+		character.SetTopLeft(character.Left() + 10, character.Top());
 	}
 }
 
