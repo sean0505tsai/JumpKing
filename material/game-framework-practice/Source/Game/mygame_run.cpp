@@ -25,23 +25,9 @@ void CGameStateRun::OnBeginState()
 {
 }
 
-bool isOverlap(CMovingBitmap obj1, CMovingBitmap obj2)
-{
-
-	// If one rectangle is on left side of other
-	if (l1.x > r2.x || l2.x > r1.x)
-		return false;
-
-	// If one rectangle is above other
-	if (r1.y > l2.y || r2.y > l1.y)
-		return false;
-
-	return true;
-}
-
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
-	if(character.)
+	// if(character.)
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定

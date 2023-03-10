@@ -1,5 +1,5 @@
 /*
- * gamelib.h: ¥»ÀÉ®×Àx¹CÀ¸¬ÛÃöªºclassªºinterface
+ * gamelib.h: æœ¬æª”æ¡ˆå„²éŠæˆ²ç›¸é—œçš„classçš„interface
  * Copyright (C) 2002-2008 Woei-Kae Chen <wkc@csie.ntut.edu.tw>
  *
  * This file is part of game, a free game development framework for windows.
@@ -57,72 +57,58 @@
  *      3. Add namespace game_framework.
  *      4. Make the class CGame a singleton so that MFC can access it easily.
  *      5. Support loading of bitmap from bmp file.
- *      6. Support ShowInitProgress(percent) to display loading progress.
+ *      6. Support ShowInitProgress(percent) to display loading progress. 
  *   2010-03-23 V4.6
  *      1. Rewrite CAudio with MCI commands to eliminate dependency with DirectMusic.
 */
-
-/////////////////////////////////////////////////////////////////////////////
-// Header for STL (Standard Template Library)
-/////////////////////////////////////////////////////////////////////////////
 
 #include <list>
 #include <vector>
 #include <map>
 using namespace std;
 
+/////////////////////////////////////////////////////////////////////////////
+// é€™å€‹classæœƒå»ºç«‹DirectX Audioç‰©ä»¶ï¼Œä»¥æä¾›éŸ³æ•ˆ
+// æ¯å€‹Public Interfaceçš„ç”¨æ³•éƒ½è¦æ‡‚ï¼ŒImplementationå¯ä»¥ä¸æ‡‚
+// æ³¨æ„äº‹é …ï¼šéŸ³æ•ˆæª”æ¡ˆå¯ä»¥ç”¨WAVEæª”(.wav)æˆ–MIDIæª”(.mid)ï¼Œæ•¸å€‹éŸ³æ•ˆæª”æ¡ˆå¯ä»¥
+//           æ··åˆ(åŒæ™‚)æ’¥æ”¾ï¼Œä½†æ˜¯å…¶ä¸­åªèƒ½æ··åˆä¸€å€‹MIDIæª”ï¼Œå…©å€‹MIDIæª”æ¡ˆä¸
+//           èƒ½åŒæ™‚æ’¥æ”¾ï¼Œå¦‚æœåŒæ™‚æ’¥æ”¾å…©å€‹MIDIæª”çš„è©±ï¼Œå‰ä¸€å€‹MIDIæª”æœƒè¢«åœ
+//           æ‰ã€‚
+/////////////////////////////////////////////////////////////////////////////
+
 namespace game_framework {
 
-	/////////////////////////////////////////////////////////////////////////////
-	// ³o­Óclass´£¨Ñ°ÊºA(¥i¥H²¾°Ê)ªº¹Ï§Î
-	// ¨C­ÓPublic Interfaceªº¥Îªk³£­nÀ´¡AImplementation¥i¥H¤£À´
-	/////////////////////////////////////////////////////////////////////////////
-
-	class CMovingBitmap {
+class CAudio {
+public:
+	~CAudio();
+	void           Close();						// é—œé–‰Direct Soundä»‹é¢
+	static CAudio* Instance();					// å–å¾—CAudioçš„Instance
+	bool           Load(unsigned, char *);		// è¼‰å…¥ç·¨è™Ÿiçš„è²éŸ³ï¼ŒæŒ‡å®šMIDIæª”æ¡ˆ
+	bool           Open();						// é–‹å•ŸDirect Soundä»‹é¢
+	void		   Pause();						// æš«åœæ’­æ”¾æ‰€æœ‰éŸ³æ•ˆ
+	void           Play(unsigned, bool=false);	// é–‹å§‹æ’¥æ”¾ç·¨è™Ÿiçš„è²éŸ³ï¼ŒæŒ‡å®šæ˜¯å¦é‡è¦†æ’¥æ”¾
+	void		   Resume();					// å¾©åŸæš«åœæ’­æ”¾çš„éŸ³æ•ˆ
+	void           SetPowerResume();			// é›»æºæ¢å¾©
+	void           Stop(unsigned);				// åœæ­¢æ’¥æ”¾ç·¨è™Ÿiçš„è²éŸ³
+private:
+	class Info {
 	public:
-		CMovingBitmap();
-		int   Height();						// ¨ú±o¹Ï§Îªº°ª«×
-		int   Left();						// ¨ú±o¹Ï§Îªº¥ª¤W¨¤ªº x ®y¼Ğ
-		void  SetAnimation(int delay, bool _once);
-		void  LoadBitmap(int, COLORREF = CLR_INVALID);		// ¸ü¤J¹Ï¡A«ü©w¹Ïªº½s¸¹(resource)¤Î³z©ú¦â
-		void  LoadBitmap(char*, COLORREF = CLR_INVALID);	// ¸ü¤J¹Ï¡A«ü©w¹ÏªºÀÉ¦W¤Î³z©ú¦â
-		void  LoadBitmap(vector<char*>, COLORREF = CLR_INVALID);	// ¸ü¤J¹Ï¡A«ü©w¹ÏªºÀÉ¦W¤Î³z©ú¦â
-		void  LoadBitmapByString(vector<string>, COLORREF = CLR_INVALID);	// ¸ü¤J¹Ï¡A«ü©w¹ÏªºÀÉ¦W¤Î³z©ú¦â
-		void  UnshowBitmap();
-		void  SetTopLeft(int, int);			// ±N¹Ïªº¥ª¤W¨¤®y¼Ğ²¾¦Ü (x,y)
-		void  ShowBitmap();					// ±N¹Ï¶K¨ì¿Ã¹õ
-		void  ShowBitmap(double factor);	// ±N¹Ï¶K¨ì¿Ã¹õ factor < 1®ÉÁY¤p¡A>1®É©ñ¤j¡Cª`·N¡G»İ­nVGA¥dµwÅéªº¤ä´©¡A§_«h·|«ÜºC
-		void  SelectShowBitmap(int select);
-		int   GetSelectShowBitmap();
-		void  ToggleAnimation();
-		int   Top();						// ¨ú±o¹Ï§Îªº¥ª¤W¨¤ªº y ®y¼Ğ
-		int   Width();						// ¨ú±o¹Ï§Îªº¼e«×
-		bool  IsAnimationDone();
-		bool  IsAnimation();
-		static bool IsOverlap(CMovingBitmap bmp1, CMovingBitmap bmp2);		//ÀË´ú¨â¹Ï¬O§_­«Å|
-		int   GetMovingBitmapFrame();
-		string GetImageFilename();
-		COLORREF GetFilterColor();
-	protected:
-		int selector = 0;
-		int delayCount = 10;
-		int animationCount = -1;
-		clock_t last_time = clock();
-		bool isAnimation = false;
-		bool isAnimationDone = true;
-		bool once = false;
-		vector<unsigned> SurfaceID;
-		COLORREF filter_color;
-		bool     isBitmapLoaded = false;	// whether a bitmap has been loaded
-		CRect    location;			// location of the bitmap
-	private:
-		string image_filename;
+		Info() {
+			repeat = isGood = false;
+		}
+		bool repeat, isGood;
+		string fileName;
 	};
-
-	class CTextDraw {
-	public:
-		void static Print(CDC *pDC, int x, int y, string str);
-		void static ChangeFontLog(CDC* pDC, CFont* &fp, int size, string fontName, COLORREF color, int weight = 500);
-	};
+	static void MCIThread(HANDLE);	// MCI thread method
+	static void ExecuteMciCommand(char *); // 
+	void SendMciCommand(char *);	// 
+	CAudio();						// private constructor
+	static CAudio		audio;		// è‡ªå‹•destruct
+	map<int, Info>		info;
+	bool				isOpened;
+    HANDLE				hThread;	// MCI command thread
+	HANDLE				hWriteEnd;	// Pipe write handle for thread
+	const static int	MAX_MCI_COMMAND_SIZE = 400;
+};
 
 }

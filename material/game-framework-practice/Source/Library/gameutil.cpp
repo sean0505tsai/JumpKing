@@ -213,6 +213,12 @@ namespace game_framework {
 		return isAnimation;
 	}
 
+	bool CMovingBitmap::IsOverlap(CMovingBitmap bmp1, CMovingBitmap bmp2) {
+		CRect rect;
+		BOOL isOverlap = rect.IntersectRect(bmp1.location, bmp2.location);
+		return isOverlap;
+	}
+
 	/////////////////////////////////////////////////////////////////////////////
 	// CTextDraw: The class provide the ability to draw the text.
 	// 這個 class 提供文字的呈現
