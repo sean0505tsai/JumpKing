@@ -27,7 +27,14 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
-	// if(character.)
+	if (character.IsOverlap(chest_and_key, character)) {
+		chest_and_key.SelectShowBitmap(1);
+	}
+
+	for (int i = 0; i < 3; i++) {
+		if (door[i].IsOverlap(door[i], character))
+			door[i].SelectShowBitmap(1);
+	}
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -56,6 +63,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 	bee.LoadBitmapByString({ "resources/bee_1.bmp", "resources/bee_2.bmp" });
 	bee.SetTopLeft(462, 265);
+	bee.SelectShowBitmap(0);
+	bee.SetAnimation(5, false);
 
 	ball.LoadBitmapByString({ "resources/ball-3.bmp", "resources/ball-2.bmp", "resources/ball-1.bmp", "resources/ball-ok.bmp" });
 	ball.SetTopLeft(150, 430);
@@ -122,19 +131,19 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 	
 	if (nChar == VK_UP) {
-		character.SetTopLeft(character.Left(), character.Top() - 10);
+		character.SetTopLeft(character.Left(), character.Top() - 15);
 	}
 
 	if (nChar == VK_DOWN) {
-		character.SetTopLeft(character.Left(), character.Top() + 10);
+		character.SetTopLeft(character.Left(), character.Top() + 15);
 	}
 
 	if (nChar == VK_LEFT) {
-		character.SetTopLeft(character.Left() - 10, character.Top());
+		character.SetTopLeft(character.Left() - 15, character.Top());
 	}
 
 	if (nChar == VK_RIGHT) {
-		character.SetTopLeft(character.Left() + 10, character.Top());
+		character.SetTopLeft(character.Left() + 15, character.Top());
 	}
 }
 

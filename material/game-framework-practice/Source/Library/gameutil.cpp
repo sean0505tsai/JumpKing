@@ -213,10 +213,20 @@ namespace game_framework {
 		return isAnimation;
 	}
 
+	int CMovingBitmap::BottomRightX() {
+		return (Left() + Width());
+	}
+
+	int CMovingBitmap::BottomRightY() {
+		return (Top() + Height());
+	}
+
 	bool CMovingBitmap::IsOverlap(CMovingBitmap bmp1, CMovingBitmap bmp2) {
-		CRect rect;
-		BOOL isOverlap = rect.IntersectRect(bmp1.location, bmp2.location);
-		return isOverlap;
+		if (bmp1.Left() >= bmp2.BottomRightX() || bmp2.Left() >= bmp1.BottomRightX())
+			return false;
+		if (bmp1.Top() >= bmp2.BottomRightY() || bmp2.Top() >= bmp1.BottomRightY())
+			return false;
+		return true;
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
