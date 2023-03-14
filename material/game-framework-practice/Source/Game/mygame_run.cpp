@@ -32,7 +32,7 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 	}
 
 	for (int i = 0; i < 3; i++) {
-		if (door[i].IsOverlap(door[i], character))
+		if (door[i].IsOverlap(door[i], character) && phase==5)
 			door[i].SelectShowBitmap(1);
 	}
 }
