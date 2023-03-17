@@ -23,6 +23,9 @@ void CGameStateInit::OnInit()
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
 	ShowInitProgress(0, "Start Initialize...");	// 一開始的loading進度為0%
+
+
+	load_images();
 	//
 	// 開始載入資料
 	//
@@ -48,4 +51,22 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CGameStateInit::OnShow()
 {
+	title.ShowBitmap();
+	draw_text();
+}
+
+void CGameStateInit::load_images() {
+	title.LoadBitmapByString({ "resources/title.bmp" }, RGB(245, 70, 255));
+	title.SetTopLeft(0, 0);
+}
+
+void CGameStateInit::draw_text() {
+	CDC* pDC = CDDraw::GetBackCDC();
+	// CFont* fp;
+
+	/* Print title */
+	CTextDraw::ChangeFontLog(pDC, 36, "微軟正黑體", RGB(255, 255, 255));
+	CTextDraw::Print(pDC, 79, 228, "Game Framework Practice");
+
+	CDDraw::ReleaseBackCDC();
 }

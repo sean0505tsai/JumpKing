@@ -6,6 +6,7 @@
 #include "../Library/gameutil.h"
 #include "../Library/gamecore.h"
 #include "mygame.h"
+#include <windows.h>
 
 using namespace game_framework;
 
@@ -34,6 +35,15 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 	for (int i = 0; i < 3; i++) {
 		if (door[i].IsOverlap(door[i], character) && phase==5)
 			door[i].SelectShowBitmap(1);
+	}
+
+	if (phase == 6) {
+		if (ball.GetSelectShowBitmap() == 3 && ball.IsAnimation()) {
+			ball.SetAnimation(0, true);
+		}else if (!ball.IsAnimation()) {
+			ball.SetAnimation(1000, false);
+		}
+			
 	}
 }
 

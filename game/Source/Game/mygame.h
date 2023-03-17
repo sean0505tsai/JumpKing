@@ -65,7 +65,13 @@ namespace game_framework {
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
+		int phase = 1;
+		int selector = 1;
 		CMovingBitmap logo;								// csie的logo
+		CMovingBitmap title;							// 遊戲title
+		CMovingBitmap cursor;							// 游標
+		void load_images();							// 載入背景圖&圖形
+		void draw_text();
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
