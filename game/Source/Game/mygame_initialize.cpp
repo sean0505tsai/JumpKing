@@ -41,23 +41,63 @@ void CGameStateInit::OnBeginState()
 
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
+	if (nChar == VK_SPACE) {
+		phase = 2;
+	}
 
+	if (phase == 2) {
+		if (nChar == VK_DOWN) {
+			if(selector > 2){}
+			else {
+				selector += 1;
+				cursor.SetTopLeft(cursor.GetLeft(), cursor.GetTop() + 40);
+			}
+		}
+		else if (nChar == VK_UP) {
+			if (selector <= 1) {}
+			else {
+				selector -= 1;
+				cursor.SetTopLeft(cursor.GetLeft(), cursor.GetTop() - 40);
+			}
+		}
+		//else if (nChar == VK_RETURN && selector == 1 || 2) {
+		//	GotoGameState(GAME_STATE_RUN);
+		//}
+	}
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
+	// GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 }
 
 void CGameStateInit::OnShow()
 {
 	title.ShowBitmap();
-	draw_text();
+	if (phase == 1) {
+		hint.ShowBitmap();
+		hint.SetAnimation(600, false);
+	}
+	else if (phase == 2) {
+		draw_text();
+		cursor.ShowBitmap();
+	}
+
+	// draw_text();
 }
 
 void CGameStateInit::load_images() {
-	title.LoadBitmapByString({ "resources/title.bmp" }, RGB(245, 70, 255));
+
+	// load background
+	title.LoadBitmapByString({ "resources/init/title_720.bmp" });
 	title.SetTopLeft(0, 0);
+
+	// load hint
+	hint.LoadBitmapByString({ "resources/init/hint_720.bmp", "resources/init/hint_720_1.bmp"});
+	hint.SetTopLeft(430, 448);
+
+	cursor.LoadBitmapByString({ "resources/init/cursor_720.bmp" }, RGB(0, 255, 0));
+	cursor.SetTopLeft(400, 451);
 }
 
 void CGameStateInit::draw_text() {
@@ -65,8 +105,11 @@ void CGameStateInit::draw_text() {
 	// CFont* fp;
 
 	/* Print title */
-	CTextDraw::ChangeFontLog(pDC, 36, "微軟正黑體", RGB(255, 255, 255));
-	CTextDraw::Print(pDC, 79, 228, "Game Framework Practice");
+	CTextDraw::ChangeFontLog(pDC, 20, "微軟正黑體", RGB(255, 255, 255));
+	CTextDraw::Print(pDC, 430, 448, "CONTINUE");
+	CTextDraw::Print(pDC, 430, 488, "NEW GAME");
+	CTextDraw::ChangeFontLog(pDC, 20, "微軟正黑體", RGB(150, 150, 150));
+	CTextDraw::Print(pDC, 430, 528, "TUTORIAL");
 
 	CDDraw::ReleaseBackCDC();
 }

@@ -68,8 +68,9 @@ namespace game_framework {
 		int phase = 1;
 		int selector = 1;
 		CMovingBitmap logo;								// csie的logo
-		CMovingBitmap title;							// 遊戲title
+		CMovingBitmap title;						// 背景&title
 		CMovingBitmap cursor;							// 游標
+		CMovingBitmap hint;								// press space
 		void load_images();							// 載入背景圖&圖形
 		void draw_text();
 	};
