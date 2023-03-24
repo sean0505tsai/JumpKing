@@ -47,22 +47,23 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 	if (phase == 2) {
 		if (nChar == VK_DOWN) {
-			if(selector > 2){}
-			else {
+			if(selector < 3){
 				selector += 1;
 				cursor.SetTopLeft(cursor.GetLeft(), cursor.GetTop() + 40);
 			}
 		}
 		else if (nChar == VK_UP) {
-			if (selector <= 1) {}
-			else {
+			if (selector > 1) {
 				selector -= 1;
 				cursor.SetTopLeft(cursor.GetLeft(), cursor.GetTop() - 40);
 			}
 		}
-		//else if (nChar == VK_RETURN && selector == 1 || 2) {
-		//	GotoGameState(GAME_STATE_RUN);
-		//}
+
+		if (nChar == VK_RETURN) {
+			if (selector < 3) {
+				GotoGameState(GAME_STATE_RUN);
+			}
+		}
 	}
 }
 
