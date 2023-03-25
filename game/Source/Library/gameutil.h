@@ -155,4 +155,58 @@ namespace game_framework {
 		void static ChangeFontLog(CDC *pdc, int size, string fontName, COLORREF fontColor, int weight = 500);
 	};
 
+	class CCharacter
+	{
+	public:
+		CCharacter();		// consturctor
+		void init();
+		void loadResources();
+		void setTopLeft(int x, int y);
+		void moveRight();
+		void moveLeft();
+		void jumpCharge();		// set jump initial velocity
+		void onShow();			// view controller
+		void onMove();
+	
+	protected:
+		enum direction_flag {
+			LEFT = 1,
+			RIGHT = 0
+		};
+		int direction;		// 0:right, 1:left
+		int x;				// 左上角x座標
+		int y;				// y座標, 向下為正
+		int showX;			// 實際顯示X座標
+		int showY;			// 實際顯示Y座標
+		int yVelocity;		// 垂直速度
+		int xVelocity;		// 水平速度
+
+	private:
+		CMovingBitmap defaultRight;
+		CMovingBitmap defaultLeft;
+		CMovingBitmap jumpCharging;
+		CMovingBitmap riseLeft;
+		CMovingBitmap riseRight;
+		CMovingBitmap fallLeft;
+		CMovingBitmap fallRight;
+		CMovingBitmap fallHitLeft;
+		CMovingBitmap fallHitRight;
+		CMovingBitmap fallenLeft;
+		CMovingBitmap fallenRight;
+		CMovingBitmap movingRight;
+		CMovingBitmap movingLeft;
+
+	};
+
+	class CMap {
+	public:
+		CMap();				// Constructor
+		void nextMap();
+		void previousMap();
+	protected:
+		int currentMap;
+	private:
+		CMovingBitmap map;
+	};
+
 }
