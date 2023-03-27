@@ -1,9 +1,16 @@
 # OOPL2023s
+2D-Game development project in OOPL course, 2023 spring
 
-- Topic: Jump King
+Topic: Jump King
 
-# ToDo List
-- 初始畫面(week 2)
+![image](https://cdn.cloudflare.steamstatic.com/steam/apps/1061090/capsule_616x353.jpg?t=1669716164)
 
-# Done
-- Framework Practice
+---
+
+## ToDo List
+- [ ] Character Control
+- [ ] Map
+
+## Function Done
+- [x] Framework Practice
+- [x] Game Menu (week 2)
