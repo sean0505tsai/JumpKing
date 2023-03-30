@@ -180,6 +180,7 @@ namespace game_framework {
 		int showY;			// 實際顯示Y座標
 		int yVelocity;		// 垂直速度
 		int xVelocity;		// 水平速度
+		void setBitmapTopLeft(int x, int y);	// 設定圖片顯示位置
 
 	private:
 		CMovingBitmap defaultRight;
@@ -198,15 +199,19 @@ namespace game_framework {
 
 	};
 
-	class CMap {
+	class CGameMap {
 	public:
-		CMap();				// Constructor
+		CGameMap();				// Constructor
 		void nextMap();
 		void previousMap();
+		void init();
+		void onShow();
+		bool willCollide(CCharacter character);
 	protected:
 		int currentMap;
 	private:
-		CMovingBitmap map;
+		CMovingBitmap gameMap;
+		CMovingBitmap map[43];
 	};
 
 }

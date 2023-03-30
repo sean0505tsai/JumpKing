@@ -1,5 +1,5 @@
-# OOPL2023s
-2D-Game development project in OOPL course, 2023 spring
+# OOPL 2023s
+2D-Game Development Project in NTUT OOPL course, 2023 spring
 
 Topic: Jump King
 

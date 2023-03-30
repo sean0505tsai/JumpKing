@@ -11,7 +11,7 @@
 using namespace game_framework;
 
 CCharacter::CCharacter() {
-
+	// init();
 }
 
 void CCharacter::init() {
@@ -61,6 +61,22 @@ void CCharacter::jumpCharge() {
 
 void CCharacter::onShow() {
 	defaultRight.ShowBitmap();
+}
+
+void CCharacter::setBitmapTopLeft(int x, int y) {
+	defaultRight.SetTopLeft(x, y);
+	defaultLeft.SetTopLeft(x, y);
+	jumpCharging.SetTopLeft(x, y);
+	riseLeft.SetTopLeft(x, y);
+	riseRight.SetTopLeft(x, y);
+	fallLeft.SetTopLeft(x, y);
+	fallRight.SetTopLeft(x, y);
+	fallHitLeft.SetTopLeft(x, y);
+	fallHitRight.SetTopLeft(x, y);
+	fallenLeft.SetTopLeft(x, y);
+	fallenRight.SetTopLeft(x, y);
+	movingRight.SetTopLeft(x, y);
+	movingLeft.SetTopLeft(x, y);
 }
 
 void CCharacter::onMove() {
