@@ -23,13 +23,11 @@ void CGameStateInit::OnInit()
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
 	ShowInitProgress(0, "Start Initialize...");	// 一開始的loading進度為0%
-
-
-	load_images();
 	//
 	// 開始載入資料
 	//
-	Sleep(1000);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	loadResources();
+	//Sleep(1000);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
@@ -47,7 +45,7 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 	if (phase == 2) {
 		if (nChar == VK_DOWN) {
-			if(selector < 3){
+			if (selector < 3) {
 				selector += 1;
 				cursor.SetTopLeft(cursor.GetLeft(), cursor.GetTop() + 40);
 			}
@@ -69,7 +67,7 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	// GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
+	//GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 }
 
 void CGameStateInit::OnShow()
@@ -80,32 +78,28 @@ void CGameStateInit::OnShow()
 		hint.SetAnimation(600, false);
 	}
 	else if (phase == 2) {
-		draw_text();
+		drawText();
 		cursor.ShowBitmap();
 	}
-
-	// draw_text();
 }
 
-void CGameStateInit::load_images() {
-
+void CGameStateInit::loadResources() {
 	// load background
 	title.LoadBitmapByString({ "resources/init/title_720.bmp" });
 	title.SetTopLeft(0, 0);
 
 	// load hint
-	hint.LoadBitmapByString({ "resources/init/hint_720.bmp", "resources/init/hint_720_1.bmp"});
+	hint.LoadBitmapByString({ "resources/init/hint_720.bmp", "resources/init/hint_720_1.bmp" });
 	hint.SetTopLeft(430, 448);
 
+	// load cursor
 	cursor.LoadBitmapByString({ "resources/init/cursor_720.bmp" }, RGB(0, 255, 0));
 	cursor.SetTopLeft(400, 451);
 }
 
-void CGameStateInit::draw_text() {
+void CGameStateInit::drawText() {
 	CDC* pDC = CDDraw::GetBackCDC();
-	// CFont* fp;
 
-	/* Print title */
 	CTextDraw::ChangeFontLog(pDC, 20, "微軟正黑體", RGB(255, 255, 255));
 	CTextDraw::Print(pDC, 430, 448, "CONTINUE");
 	CTextDraw::Print(pDC, 430, 488, "NEW GAME");

@@ -32,22 +32,12 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
-	character.init();
+	
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	if (nChar == VK_LEFT) {
-		character.moveLeft();
-	}
-
-	if (nChar == VK_RIGHT) {
-		character.moveRight();
-	}
-
-	if (nChar == VK_SPACE) {
-		character.jumpCharge();
-	}
+	
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -77,6 +67,4 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 
 void CGameStateRun::OnShow()
 {
-	character.onShow();
-	map.onShow();
 }

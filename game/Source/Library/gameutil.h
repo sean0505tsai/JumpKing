@@ -1,3 +1,4 @@
+#pragma once
 /*
  * gamelib.h: 本檔案儲遊戲相關的class的interface
  * Copyright (C) 2002-2008 Woei-Kae Chen <wkc@csie.ntut.edu.tw>
@@ -136,7 +137,7 @@ namespace game_framework {
 		bool isBitmapLoaded = false;	// whether a bitmap has been loaded
 		//! 儲存物件動畫是否為單次動畫
 		bool isOnce = false;
-		CRect    location;			// location of the bitmap
+		vector<CRect>    locations;			// location of the bitmap
 		vector<unsigned> surfaceID;
 		clock_t last_time = clock();
 		//! 儲存物件讀取的圖片路徑
@@ -153,65 +154,6 @@ namespace game_framework {
 	public:
 		void static Print(CDC *pdc, int x, int y, string str);
 		void static ChangeFontLog(CDC *pdc, int size, string fontName, COLORREF fontColor, int weight = 500);
-	};
-
-	class CCharacter
-	{
-	public:
-		CCharacter();		// consturctor
-		void init();
-		void loadResources();
-		void setTopLeft(int x, int y);
-		void moveRight();
-		void moveLeft();
-		void jumpCharge();		// set jump initial velocity
-		void onShow();			// view controller
-		void onMove();
-	
-	protected:
-		enum direction_flag {
-			LEFT = 1,
-			RIGHT = 0
-		};
-		int direction;		// 0:right, 1:left
-		int x;				// 左上角x座標
-		int y;				// y座標, 向下為正
-		int showX;			// 實際顯示X座標
-		int showY;			// 實際顯示Y座標
-		int yVelocity;		// 垂直速度
-		int xVelocity;		// 水平速度
-		void setBitmapTopLeft(int x, int y);	// 設定圖片顯示位置
-
-	private:
-		CMovingBitmap defaultRight;
-		CMovingBitmap defaultLeft;
-		CMovingBitmap jumpCharging;
-		CMovingBitmap riseLeft;
-		CMovingBitmap riseRight;
-		CMovingBitmap fallLeft;
-		CMovingBitmap fallRight;
-		CMovingBitmap fallHitLeft;
-		CMovingBitmap fallHitRight;
-		CMovingBitmap fallenLeft;
-		CMovingBitmap fallenRight;
-		CMovingBitmap movingRight;
-		CMovingBitmap movingLeft;
-
-	};
-
-	class CGameMap {
-	public:
-		CGameMap();				// Constructor
-		void nextMap();
-		void previousMap();
-		void init();
-		void onShow();
-		bool willCollide(CCharacter character);
-	protected:
-		int currentMap;
-	private:
-		CMovingBitmap gameMap;
-		CMovingBitmap map[43];
 	};
 
 }

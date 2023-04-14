@@ -54,8 +54,8 @@
     <ClCompile Include="Source\Game\mygame_run.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\CMap.cpp" />
     <ClCompile Include="Source\Game\CCharacter.cpp" />
-    <ClCompile Include="Source\Game\CGameMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -91,8 +91,8 @@
     <ClInclude Include="Source\Game\config.h">
       <Filter>MyGame</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\CMap.h" />
     <ClInclude Include="Source\Game\CCharacter.h" />
-    <ClInclude Include="Source\Game\CGameMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Core\game.rc">

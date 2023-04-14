@@ -20,8 +20,8 @@ CGameMap::CGameMap() {
 
 void CGameMap::init() {
 	currentMap = 1;
-	gameMap.LoadBitmapByString({ "resources/maps/title.bmp" });
-	gameMap.SetTopLeft(0, 0);
+	gameMap.LoadBitmapByString({ "resources/map_720/map0.bmp" });
+	// gameMap.SetTopLeft(0, 0);
 	// map[0].LoadBitmapByString({ "resources/map/title.bmp" });
 	/*
 	for (int i = 1; i < 44; i++) {
@@ -91,6 +91,6 @@ void CGameMap::previousMap() {
 
 void CGameMap::onShow() {
 	
-	gameMap.ShowBitmap();
+	// gameMap.ShowBitmap();
 	//map[currentMap].ShowBitmap();
 }
