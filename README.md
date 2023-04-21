@@ -1,5 +1,6 @@
 # OOPL 2023s
-2D-Game Development Project in NTUT OOPL course, 2023 spring
+2D-Game Development Project in NTUT OOPL course, 2023 spring  
+[Framework Documents](https://lgf-readthedocs.readthedocs.io/zh_TW/latest/)
 
 Topic: [Jump King](https://store.steampowered.com/app/1061090/Jump_King/?l=tchinese)
 
