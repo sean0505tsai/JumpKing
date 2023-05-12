@@ -38,6 +38,8 @@
  *      3. Use ShowInitProgress(percent) to display loading progress.
 */
 
+#include "CCharacter.h"
+#include "CGameMap.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -93,9 +95,20 @@ namespace game_framework {
 		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
 		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
+		void drawPauseText();
 	protected:
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
+		void pause();
+		bool isPause;
+
+		CGameMap gameMap;
+		CMovingBitmap mapResource[43];
+
+		CCharacter character;
+		CMovingBitmap characterResource[20];
+
+		CMovingBitmap pauseMenu;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
