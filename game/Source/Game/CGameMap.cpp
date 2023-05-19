@@ -32,11 +32,11 @@ void CGameMap::prevMap() {
 }
 
 void CGameMap::setMap(int Y) {
-	if (Y >= 0) {			// Y座標<0
+	if (Y >= 0) {			// Y座標 > 0
 		currentMap = 0;
 	}
-	else {					// Y座標>0
-		currentMap = ((Y % 720) + 1)*-1;
+	else {					// Y座標 < 0
+		currentMap = (((Y / 720)*-1)+1);
 	}
 }
 

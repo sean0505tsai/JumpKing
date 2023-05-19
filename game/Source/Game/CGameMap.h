@@ -15,7 +15,7 @@ namespace game_framework {
 		bool willCollide(int x, int y, int width, int height);			// 偵測碰撞
 
 	protected:
-
+		// int mapArray[]
 
 	private:
 		int currentMap;

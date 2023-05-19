@@ -90,7 +90,7 @@ int CCharacter::getYshow() {
 		return Yactual;
 	}
 	else {
-		Yshow = -1* Yactual % 720;
+		Yshow = Yactual % 720 + 720;
 		return Yshow;
 	}
 	
