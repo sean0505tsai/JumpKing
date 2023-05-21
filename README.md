@@ -13,15 +13,20 @@ Topic: [Jump King](https://store.steampowered.com/app/1061090/Jump_King/?l=tchin
 - [ ] Player Control
 - [ ] Physics
 - [ ] Animation
-- [ ] Map Change With Character Position
 
 ### Game Map
-- [ ] Load Resources(image)
-- [ ] Map Switching
+- [ ] Map Matrix
 
 ## Function Done
 - [x] Framework Practice
 - [x] Game Menu (week 2)
+
+### Character
+- [x] Map Change With Character Position
+
+### Map
+- [x] Load Resources(image)
+- [x] Map Switching
 
 ---
 ## Debug Logs
