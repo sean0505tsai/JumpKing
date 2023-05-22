@@ -35,7 +35,7 @@ namespace game_framework {
 		};
 		*/
 
-		bool notMoving;			// 在表面上無移動
+		bool isOnSurface;		// 無垂直移動
 		bool isMovingLeft;		// 平面上往左移動
 		bool isMovingRight;		// 平面上往右移動
 		bool isMovingUp;		// 往上移動中 (dev mode)
@@ -61,11 +61,13 @@ namespace game_framework {
 		int X;			// X座標
 		int Yactual;	// 實際Y座標
 		int Yshow;		// 顯示Y座標
+		const int STEP_SIZE = 2;
 
 		// 移動速度相關
 		int acceleration;	// 跳躍加速度
 		int velocityY;		// 垂直速度
 		int velocityX;		// 水平速度
+		int gravity;		// 重力加速度
 
 		// 顯示哪張圖
 		int bitmapShow;

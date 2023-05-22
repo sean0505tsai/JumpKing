@@ -19,6 +19,7 @@ void CCharacter::init() {
 	velocityX = 0;
 	velocityY = 0;
 
+	isOnSurface = true;
 	isMovingLeft = false;
 	isMovingRight = false;
 	isMovingUp = false;
@@ -34,13 +35,13 @@ int CCharacter::resourceShow() {
 }
 
 void CCharacter::setMoveLeft(bool flag) {
-	if (velocityY == 0) {
+	if (isOnSurface) {
 		isMovingLeft = flag;					// 在平面上才能往左移動
 	}
 }
 
 void CCharacter::setMoveRight(bool flag) {
-	if (velocityY == 0) {
+	if (isOnSurface) {
 		isMovingRight = flag;					// 在平面上才能往右移動
 	}
 }
@@ -54,7 +55,7 @@ void CCharacter::setMoveDown(bool flag) {
 }
 
 void CCharacter::jumpCharge(bool flag) {
-	if (acceleration < 20) acceleration++;		// 加速度<20則增加
+	if (acceleration < 20) acceleration++;		// 加速度<20則增加，最大為20
 }
 
 void CCharacter::jump() {
@@ -65,17 +66,17 @@ void CCharacter::jump() {
 
 void CCharacter::onMove() {
 	// 物理狀態
-	if (isMovingLeft) {
-		X -= 2;
+	if (isMovingLeft && isOnSurface) {
+		X -= STEP_SIZE;
 	}
 	if (isMovingRight) {
-		X += 2;
+		X += STEP_SIZE;
 	}
 	if (isMovingUp) {
-		Yactual -= 2;
+		Yactual -= STEP_SIZE;
 	}
 	if (isMovingDown) {
-		Yactual += 2;
+		Yactual += STEP_SIZE;
 	}
 }
 

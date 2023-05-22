@@ -57,9 +57,30 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	}
 
 
-	// load character resources
+	// load character resources and set default value
+	// 0: 預設向右圖
 	characterResource[0].LoadBitmapByString({ "resources/character/defaultRight.bmp" }, RGB(0, 255, 0));
 	characterResource[0].SetTopLeft(character.getX(), character.getYshow());
+
+	// 1: 預設向左圖
+	characterResource[1].LoadBitmapByString({ "resources/character/defaultLeft.bmp" }, RGB(0, 255, 0));
+	characterResource[1].SetTopLeft(character.getX(), character.getYshow());
+
+	// 2: 向右走動畫
+	characterResource[2].LoadBitmapByString({ "resources/character/moving_right/move_right_1.bmp" }, RGB(0, 255, 0));
+	characterResource[2].SetTopLeft(character.getX(), character.getYshow());
+
+	// 3: 向左走動畫
+	characterResource[3].LoadBitmapByString({ "resources/character/moving_left/move_left_1.bmp" }, RGB(0, 255, 0));
+	characterResource[3].SetTopLeft(character.getX(), character.getYshow());
+
+	// 4: 跳躍蓄力
+	characterResource[4].LoadBitmapByString({ "resources/character/charge.bmp" }, RGB(0, 255, 0));
+	characterResource[4].SetTopLeft(character.getX(), character.getYshow());
+
+	// 5: 向右跳躍圖
+	characterResource[5].LoadBitmapByString({ "resources/character/rise_right.bmp" }, RGB(0, 255, 0));
+	characterResource[5].SetTopLeft(character.getX(), character.getYshow());
 
 }
 
