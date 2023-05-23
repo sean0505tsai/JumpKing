@@ -26,6 +26,7 @@ void CCharacter::init() {
 	isMovingRight = false;
 	isMovingUp = false;
 	isMovingDown = false;
+	isCharging = false;
 	isRising = false;
 	isFalling = false;
 	hitWhenFalling = false;
@@ -57,6 +58,7 @@ void CCharacter::setMoveDown(bool flag) {
 }
 
 void CCharacter::jumpCharge(bool flag) {
+	isCharging = flag;
 	if (acceleration < 20) acceleration++;		// 加速度<20則增加，最大為20
 }
 
@@ -67,18 +69,32 @@ void CCharacter::jump() {
 
 
 void CCharacter::onMove() {
+	
+	/*	角色動畫:
+		0: 預設向右圖	5: 向右跳躍圖		9: 落下途中受撞擊_右
+		1: 預設向左圖	6: 向右跳躍圖		10: 落下途中受撞擊_左
+		2: 向右走動畫	7: 向右落下圖		11: 從高處落地_右
+		3: 向左走動畫	8: 向左落下圖		12: 從高處落地_左
+		4: 跳躍蓄力		
+	*/
+	
 	// 物理狀態
 	if (isMovingLeft && isOnSurface) {
 		X -= STEP_SIZE;
+		bitmapShow = 3;
 	}
 	if (isMovingRight) {
 		X += STEP_SIZE;
+		bitmapShow = 2;
 	}
 	if (isMovingUp) {
 		Yactual -= STEP_SIZE;
 	}
 	if (isMovingDown) {
 		Yactual += STEP_SIZE;
+	}
+	if (isCharging) {
+		bitmapShow = 4;
 	}
 }
 
