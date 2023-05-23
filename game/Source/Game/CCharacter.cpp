@@ -16,8 +16,10 @@ void CCharacter::init() {
 	Yshow = 500;				// 顯示用Y座標
 
 	acceleration = 0;
+	acceleration = 0;
 	velocityX = 0;
 	velocityY = 0;
+	gravity = 0;
 
 	isOnSurface = true;
 	isMovingLeft = false;
@@ -29,7 +31,7 @@ void CCharacter::init() {
 	hitWhenFalling = false;
 }
 
-int CCharacter::resourceShow() {
+int CCharacter::getResourceShow() {
 	// 計算Yshow
 	return bitmapShow;
 }
@@ -99,4 +101,14 @@ int CCharacter::getYshow() {
 
 int CCharacter::getYactual() {
 	return Yactual;
+}
+
+// dev mode 
+void CCharacter::nextResource() {
+	if (bitmapShow < 12) bitmapShow += 1;
+}
+
+// dev mode
+void CCharacter::previousResource() {
+	if (bitmapShow > 0) bitmapShow -= 1;
 }

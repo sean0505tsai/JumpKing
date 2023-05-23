@@ -6,17 +6,22 @@ namespace game_framework {
 	public:
 		CCharacter();		// constructor
 		void init();
-		int resourceShow();
+		int getResourceShow();
+		
 		void onMove();
 		void setMoveLeft(bool flag);
 		void setMoveRight(bool flag);
 		void setMoveUp(bool flag);		// dev mode
 		void setMoveDown(bool flag);	// dev mode
 		void jumpCharge(bool flag);
+		
+		void onShow();
 		int getX();
 		int getYshow();		// 提供mygame_run顯示用座標
 		int getYactual();	// 提供CGameMap判斷位置用座標
 
+		void nextResource();
+		void previousResource();
 
 	protected:
 		void jump();
@@ -55,7 +60,7 @@ namespace game_framework {
 		*/
 
 		int state;
-		int facing;
+		int facing;		// 0: 右, 1:左
 
 		// 座標相關
 		int X;			// X座標
