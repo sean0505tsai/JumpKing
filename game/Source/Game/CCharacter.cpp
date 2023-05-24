@@ -11,25 +11,28 @@ void CCharacter::init() {
 	// facing = right;
 	// state = motionless;
 	bitmapShow = 0;				// 顯示哪張圖
-	X = 0;						// X座標
-	Yactual = 500;				// 實際Y座標
-	Yshow = 500;				// 顯示用Y座標
+	X = 456;						// X座標
+	Yactual = 580;				// 實際Y座標
+	Yshow = 580;				// 顯示用Y座標
 
+	facing = 1;
 	acceleration = 0;
 	acceleration = 0;
 	velocityX = 0;
 	velocityY = 0;
 	gravity = 0;
 
-	isOnSurface = true;
+	isMovingUp = false;			// dev mode
+	isMovingDown = false;		// dev mode
+
+	isOnSurface = true;			// 平面上的狀態
 	isMovingLeft = false;
 	isMovingRight = false;
-	isMovingUp = false;
-	isMovingDown = false;
-	isCharging = false;
-	isRising = false;
-	isFalling = false;
-	hitWhenFalling = false;
+	
+	isCharging = false;			//跳躍蓄力, 在平面上才可觸發 
+	isRising = false;			// 跳躍後觸發
+	isFalling = false;			// 初速被重力減完後觸發
+	hitWhenFalling = false;		// 落下途中遭受撞擊
 }
 
 int CCharacter::getResourceShow() {
@@ -59,7 +62,7 @@ void CCharacter::setMoveDown(bool flag) {
 
 void CCharacter::jumpCharge(bool flag) {
 	isCharging = flag;
-	if (acceleration < 20) acceleration++;		// 加速度<20則增加，最大為20
+	if (isOnSurface && acceleration < 20) acceleration++;		// 加速度<20則增加，最大為20
 }
 
 void CCharacter::jump() {

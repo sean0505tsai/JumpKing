@@ -96,7 +96,7 @@ namespace game_framework {
 		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
 		void drawPauseText();
-		void drawText(string text);
+		void drawText(string text, int x, int y);
 	protected:
 		const int animationSpeed = 150;
 		void OnMove();									// 移動遊戲元素

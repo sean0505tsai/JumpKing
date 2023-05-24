@@ -156,12 +156,12 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 		if (nChar == VK_NUMPAD8) {
 
-			gameMap.nextMap();		// next map (dev mode)
+			// gameMap.nextMap();		// next map (dev mode)
 		}
 
 		if (nChar == VK_NUMPAD2) {
 
-			gameMap.prevMap();		// previous map (dev mode)
+			// gameMap.prevMap();		// previous map (dev mode)
 		}
 
 		if (nChar == 0x4A) {		// J
@@ -232,7 +232,11 @@ void CGameStateRun::OnShow()
 	if (isPause) {
 		drawPauseText();
 	}
-	drawText(std::to_string(character.getResourceShow()));
+
+	// dev mode
+	drawText("Resource:" + std::to_string(character.getResourceShow()), 10, 30);
+	drawText("Position:" + std::to_string(character.getX())
+				+ ", " + std::to_string(character.getYshow()), 10, 50);
 }
 
 void CGameStateRun::pause()
@@ -254,11 +258,11 @@ void CGameStateRun::drawPauseText() {
 	CDDraw::ReleaseBackCDC();
 }
 
-void CGameStateRun::drawText(string text) {
+void CGameStateRun::drawText(string text, int x, int y) {
 
 	CDC* pDC = CDDraw::GetBackCDC();
 
 	CTextDraw::ChangeFontLog(pDC, 20, "微軟正黑體", RGB(255, 255, 255));
-	CTextDraw::Print(pDC, 10, 30, text);
+	CTextDraw::Print(pDC, x, y, text);
 	CDDraw::ReleaseBackCDC();
 }
