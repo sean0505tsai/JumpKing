@@ -16,11 +16,7 @@ namespace game_framework {
 	protected:
 
 		int currentMap;
-		int mapArray[1][45][60] = {
-			{
-				{},
-			}
-		};
+		vector<vector<vector<int>>> myVector(43, std::vector<std::vector<int>>(3, std::vector<int>(3, 0)));
 	};
 }
 

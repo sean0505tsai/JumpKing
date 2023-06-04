@@ -15,7 +15,7 @@ void CCharacter::init() {
 	Yactual = 580;				// 實際Y座標
 	Yshow = 580;				// 顯示用Y座標
 
-	facing = 1;					// 預設面向右
+	isFacingRight = true;		// 預設面向右
 	acceleration = 0;
 	acceleration = 0;
 	velocityX = 0;
@@ -45,7 +45,7 @@ int CCharacter::getResourceShow() {
 }
 
 void CCharacter::setMoveLeft(bool flag) {
-	facing = 0;
+	isFacingRight = false;
 	if (bottomCollision == 1 && !isCharging) {
 		isMovingLeft = flag;					// 在平面上才能往左移動
 	}
@@ -53,7 +53,7 @@ void CCharacter::setMoveLeft(bool flag) {
 }
 
 void CCharacter::setMoveRight(bool flag) {
-	facing = 1;
+	isFacingRight = true;
 	if (bottomCollision == 1 && !isCharging) {
 		isMovingRight = flag;					// 在平面上才能往右移動
 	}
@@ -98,14 +98,16 @@ void CCharacter::onShow() {
 
 	if (isCharging) bitmapShow = 4;
 	
-	if (facing == 0) {		// 面向左
-
+	if (!isFacingRight) {		// 面向左
+		if (isMovingLeft) bitmapShow = 3;
+		else bitmapShow = 1;
 	}
-	else if (facing = 1) {	// 面向右
-
+	else if (isFacingRight) {	// 面向右
+		if (isMovingRight) bitmapShow = 2;
+		else bitmapShow = 0;
 	}
-	if (isMovingLeft) bitmapShow = 3;
-	if (isMovingRight) bitmapShow = 2;
+	
+	
 }
 
 void CCharacter::onMove() {

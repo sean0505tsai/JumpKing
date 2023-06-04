@@ -64,7 +64,7 @@ namespace game_framework {
 		*/
 
 		int state;
-		int facing;		// 0: 左, 1:右
+		bool isFacingRight;		// 是否面向右邊
 
 		// 座標相關
 		int X;			// X座標
