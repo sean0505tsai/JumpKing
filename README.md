@@ -10,7 +10,6 @@ Topic: [Jump King](https://store.steampowered.com/app/1061090/Jump_King/?l=tchin
 
 ## ToDo List
 ### Character
-- [ ] Player Control
 - [ ] Physics
 - [ ] Animation
 
@@ -22,6 +21,7 @@ Topic: [Jump King](https://store.steampowered.com/app/1061090/Jump_King/?l=tchin
 - [x] Game Menu (week 2)
 
 ### Character
+- [x] Player Control
 - [x] Map Change With Character Position
 
 ### Map
