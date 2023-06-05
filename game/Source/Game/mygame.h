@@ -38,6 +38,8 @@
  *      3. Use ShowInitProgress(percent) to display loading progress.
 */
 
+#include "CCharacter.h"
+#include "CGameMap.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -63,16 +65,16 @@ namespace game_framework {
 		void OnKeyUp(UINT, UINT, UINT); 				// 處理鍵盤Up的動作
 		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 	protected:
-		void OnShow();									// 顯示這個狀態的遊戲畫面
+		void OnShow();		// 顯示這個狀態的遊戲畫面
+		void loadResources();
+		void drawText();
 	private:
 		int phase = 1;
 		int selector = 1;
 		CMovingBitmap logo;								// csie的logo
-		CMovingBitmap title;						// 背景&title
-		CMovingBitmap cursor;							// 游標
-		CMovingBitmap hint;								// press space
-		void load_images();							// 載入背景圖&圖形
-		void draw_text();
+		CMovingBitmap title;
+		CMovingBitmap cursor;
+		CMovingBitmap hint;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -93,9 +95,22 @@ namespace game_framework {
 		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
 		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
+		void drawPauseText();
+		void drawText(string text, int x, int y);
 	protected:
+		const int animationSpeed = 150;
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
+		void pause();
+		bool isPause;
+
+		CGameMap gameMap;
+		CMovingBitmap mapResource[43];
+
+		CCharacter character;
+		CMovingBitmap characterResource[20];
+
+		CMovingBitmap pauseMenu;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

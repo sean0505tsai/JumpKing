@@ -233,6 +233,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="resources\gamecurs.cur" />
     <None Include="RES\GAME.RC2" />
   </ItemGroup>
   <ItemGroup>
@@ -243,6 +244,8 @@
     <ClCompile Include="Source\Core\StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Source\Game\CCharacter.cpp" />
+    <ClCompile Include="Source\Game\CGameMap.cpp" />
     <ClCompile Include="Source\Game\mygame_initialize.cpp" />
     <ClCompile Include="Source\Game\mygame_over.cpp" />
     <ClCompile Include="Source\Game\mygame_run.cpp" />
@@ -259,6 +262,8 @@
     <ClInclude Include="Source\Core\MainFrm.h" />
     <ClInclude Include="Source\Core\Resource.h" />
     <ClInclude Include="Source\Core\StdAfx.h" />
+    <ClInclude Include="Source\Game\CCharacter.h" />
+    <ClInclude Include="Source\Game\CGameMap.h" />
     <ClInclude Include="Source\Game\config.h" />
     <ClInclude Include="Source\Game\mygame.h" />
     <ClInclude Include="Source\Library\audio.h" />
@@ -267,6 +272,54 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Core\game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\game.ico" />
+    <Image Include="resources\gameDoc.ico" />
+    <Image Include="Resources\map_720\map0.bmp" />
+    <Image Include="Resources\map_720\map1.bmp" />
+    <Image Include="Resources\map_720\map10.bmp" />
+    <Image Include="Resources\map_720\map11.bmp" />
+    <Image Include="Resources\map_720\map12.bmp" />
+    <Image Include="Resources\map_720\map13.bmp" />
+    <Image Include="Resources\map_720\map14.bmp" />
+    <Image Include="Resources\map_720\map15.bmp" />
+    <Image Include="Resources\map_720\map16.bmp" />
+    <Image Include="Resources\map_720\map17.bmp" />
+    <Image Include="Resources\map_720\map18.bmp" />
+    <Image Include="Resources\map_720\map19.bmp" />
+    <Image Include="Resources\map_720\map2.bmp" />
+    <Image Include="Resources\map_720\map20.bmp" />
+    <Image Include="Resources\map_720\map21.bmp" />
+    <Image Include="Resources\map_720\map22.bmp" />
+    <Image Include="Resources\map_720\map23.bmp" />
+    <Image Include="Resources\map_720\map24.bmp" />
+    <Image Include="Resources\map_720\map25.bmp" />
+    <Image Include="Resources\map_720\map26.bmp" />
+    <Image Include="Resources\map_720\map27.bmp" />
+    <Image Include="Resources\map_720\map28.bmp" />
+    <Image Include="Resources\map_720\map29.bmp" />
+    <Image Include="Resources\map_720\map3.bmp" />
+    <Image Include="Resources\map_720\map30.bmp" />
+    <Image Include="Resources\map_720\map31.bmp" />
+    <Image Include="Resources\map_720\map32.bmp" />
+    <Image Include="Resources\map_720\map33.bmp" />
+    <Image Include="Resources\map_720\map34.bmp" />
+    <Image Include="Resources\map_720\map35.bmp" />
+    <Image Include="Resources\map_720\map36.bmp" />
+    <Image Include="Resources\map_720\map37.bmp" />
+    <Image Include="Resources\map_720\map38.bmp" />
+    <Image Include="Resources\map_720\map39.bmp" />
+    <Image Include="Resources\map_720\map4.bmp" />
+    <Image Include="Resources\map_720\map40.bmp" />
+    <Image Include="Resources\map_720\map41.bmp" />
+    <Image Include="Resources\map_720\map42.bmp" />
+    <Image Include="Resources\map_720\map5.bmp" />
+    <Image Include="Resources\map_720\map6.bmp" />
+    <Image Include="Resources\map_720\map7.bmp" />
+    <Image Include="Resources\map_720\map8.bmp" />
+    <Image Include="Resources\map_720\map9.bmp" />
+    <Image Include="resources\Toolbar.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

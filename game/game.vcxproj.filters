@@ -19,6 +19,9 @@
     <None Include="RES\GAME.RC2">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="resources\gamecurs.cur">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Library\audio.cpp">
@@ -54,6 +57,8 @@
     <ClCompile Include="Source\Game\mygame_run.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\CCharacter.cpp" />
+    <ClCompile Include="Source\Game\CGameMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -89,10 +94,152 @@
     <ClInclude Include="Source\Game\config.h">
       <Filter>MyGame</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\CCharacter.h" />
+    <ClInclude Include="Source\Game\CGameMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Core\game.rc">
       <Filter>MFC</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\map_720\map0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map9.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map10.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map11.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map12.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map13.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map14.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map15.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map16.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map17.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map18.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map19.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map20.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map21.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map22.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map23.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map24.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map25.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map26.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map27.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map28.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map29.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map30.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map31.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map33.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map34.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map35.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map36.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map37.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map38.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map39.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map40.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map41.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map_720\map42.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\game.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\gameDoc.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
