@@ -12,6 +12,9 @@ Topic: [Jump King](https://store.steampowered.com/app/1061090/Jump_King/?l=tchin
 ### Character
 - [ ] Physics
 - [ ] Animation
+- [ ] Character Dies if Fall from a High Place
+- [ ] Collision
+- [ ] Cheat
 
 ### Game Map
 - [ ] Map Matrix
