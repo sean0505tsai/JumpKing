@@ -14,6 +14,11 @@ namespace game_framework {
 		void setMoveUp(bool flag);		// dev mode
 		void setMoveDown(bool flag);	// dev mode
 		void jumpCharge(bool flag);
+
+		void setTopCollision(bool flag);
+		void setBottomCollision(bool flag);
+		void setLeftCollision(int flag);
+		void setRightCollision(bool flag);
 		
 		void onShow();
 		int getX();
@@ -70,6 +75,9 @@ namespace game_framework {
 		int X;			// X座標
 		int Yactual;	// 實際Y座標
 		int Yshow;		// 顯示Y座標
+
+		const int height = 48;
+		const int width = 48;
 
 		// 移動速度相關
 		int acceleration;	// 跳躍加速度

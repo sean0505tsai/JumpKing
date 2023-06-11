@@ -236,8 +236,10 @@ void CGameStateRun::OnShow()
 
 	// dev mode
 	drawText("Resource:" + std::to_string(character.getResourceShow()), 10, 30);
-	drawText("Position:" + std::to_string(character.getX())
-				+ ", " + std::to_string(character.getYshow()), 10, 50);
+	drawText("X:" + std::to_string(character.getX()), 10, 50);
+	drawText("Yactual:" + std::to_string(character.getYactual()), 10, 70);
+	drawText("Yshow: " + std::to_string(character.getYshow()), 10, 90);
+				
 }
 
 void CGameStateRun::pause()

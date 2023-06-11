@@ -40,8 +40,47 @@ void CGameMap::setMap(int Y) {
 	}
 }
 
-bool CGameMap::willCollide(int x, int y, int width, int height) {
-	int x1 = x + width;
-	int y1 = y + height;
-	return false;
+bool CGameMap::topCollision(int x, int y, int width) {
+	bool flag = false;
+	int Ytarget = ( ( ( (y - 720) - 1) / 16) + 1934 );	// 16*16 pixel為一格, 960*720 pixel為一關, 統一先上移720 pixel
+	int Xstart = x / 16;							// 將實際座標轉換為地圖陣列座標
+	int Xend = ( (x + width) - 1) / 16;
+	for (int i = Xstart; i <= Xend; i++) {
+		if (mapArray[Ytarget][i] != 0) flag = true;	// 檢查是否碰撞, mapArray[y][x]
+	}
+	return flag;
+}
+
+int CGameMap::bottomCollision(int x, int y, int width, int height) {
+	int flag = 0;
+	int Ytarget = ( ( (y - 720) + height) / 16);		// 16*16 pixel為一格, 960*720 pixel為一關, 統一先上移720 pixel
+	int Xstart = x / 16;								// 將實際座標轉換為地圖陣列座標
+	int Xend = ( (x + width) - 1) / 16;
+	for (int i = Xstart; i <= Xend; i++) {
+		if (mapArray[Ytarget][i] != 0) flag = mapArray[Ytarget][i];	// 檢查是否碰撞, mapArray[y][x]
+	}
+	return flag;
+}
+
+bool CGameMap::leftCollision(int x, int y, int height) {
+	bool flag = false;
+	int Xtarget = ((x - 1) / 16);              // 16*16 pixel為一格, 960*720 pixel為一關, 統一先上移720 pixel
+	int Ystart = y / 16;							// 將實際座標轉換為地圖陣列座標
+	int Yend = (y + height - 1) / 16;
+	for (int i = Ystart; i <= Yend; i++) {
+		if (mapArray[i][Xtarget] != 0) flag = true;	// 檢查是否碰撞, mapArray[y][x]
+	}
+	return flag;
+}
+
+
+bool CGameMap::rightCollision(int x, int y, int width, int height) {
+	bool flag = false;
+	int Xtarget = ((x + width) / 16);              // 16*16 pixel為一格, 960*720 pixel為一關, 統一先上移720 pixel
+	int Ystart = y / 16;							// 將實際座標轉換為地圖陣列座標
+	int Yend = ( (y + height) - 1) / 16;
+	for (int i = Ystart; i <= Yend; i++) {
+		if (mapArray[i][Xtarget] != 0) flag = true;	// 檢查是否碰撞, mapArray[y][x]
+	}
+	return flag;
 }
