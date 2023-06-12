@@ -16,8 +16,8 @@ namespace game_framework {
 		void jumpCharge(bool flag);
 
 		void setTopCollision(bool flag);
-		void setBottomCollision(bool flag);
-		void setLeftCollision(int flag);
+		void setBottomCollision(int flag);
+		void setLeftCollision(bool flag);
 		void setRightCollision(bool flag);
 		
 		void onShow();

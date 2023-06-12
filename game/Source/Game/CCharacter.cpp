@@ -174,3 +174,20 @@ void CCharacter::nextResource() {
 void CCharacter::previousResource() {
 	if (bitmapShow > 0) bitmapShow -= 1;
 }
+
+
+void CCharacter::setTopCollision(bool flag) {
+	topCollision = flag;
+}
+
+void CCharacter::setBottomCollision(int flag) {
+	bottomCollision = flag;
+}
+
+void CCharacter::setLeftCollision(bool flag) {
+	leftCollision = flag;
+}
+
+void CCharacter::setRightCollision(bool flag) {
+	rightCollision = flag;
+}

@@ -53,7 +53,7 @@ bool CGameMap::topCollision(int x, int y, int width) {
 
 int CGameMap::bottomCollision(int x, int y, int width, int height) {
 	int flag = 0;
-	int Ytarget = ( ( (y - 720) + height) / 16);		// 16*16 pixel為一格, 960*720 pixel為一關, 統一先上移720 pixel
+	int Ytarget = ( ( ( (y - 720) + height) / 16) + 1934);		// 16*16 pixel為一格, 960*720 pixel為一關, 統一先上移720 pixel
 	int Xstart = x / 16;								// 將實際座標轉換為地圖陣列座標
 	int Xend = ( (x + width) - 1) / 16;
 	for (int i = Xstart; i <= Xend; i++) {

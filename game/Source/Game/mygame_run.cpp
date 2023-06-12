@@ -32,6 +32,17 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
+	int x = character.getX();
+	int y = character.getYactual();
+	int width = characterResource[character.getResourceShow()].GetWidth();
+	int height = characterResource[character.getResourceShow()].GetHeight();
+
+	character.setTopCollision( gameMap.topCollision( x, y, width));
+	character.setBottomCollision( gameMap.bottomCollision(x, y, width, height));
+	character.setLeftCollision( gameMap.leftCollision( x, y, height));
+	character.setRightCollision( gameMap.rightCollision(x, y, width, height));
+
+
 	if (isPause == false) {			// 暫停狀態不運算物理 所有物件不動
 		character.onMove();
 	}
@@ -234,11 +245,21 @@ void CGameStateRun::OnShow()
 		drawPauseText();
 	}
 
+	int x = character.getX();
+	int y = character.getYactual();
+	int width = characterResource[character.getResourceShow()].GetWidth();
+	int height = characterResource[character.getResourceShow()].GetHeight();
+
+
 	// dev mode
 	drawText("Resource:" + std::to_string(character.getResourceShow()), 10, 30);
 	drawText("X:" + std::to_string(character.getX()), 10, 50);
 	drawText("Yactual:" + std::to_string(character.getYactual()), 10, 70);
 	drawText("Yshow: " + std::to_string(character.getYshow()), 10, 90);
+	drawText("top collision: " + std::to_string(gameMap.topCollision(x, y, width)), 10, 110);
+	drawText("bottom collisioon" + std::to_string(gameMap.bottomCollision(x, y, width, height)), 10, 130);
+	drawText("left collisioon" + std::to_string(gameMap.leftCollision(x, y, height)), 10, 150);
+	drawText("right collisioon" + std::to_string(gameMap.rightCollision(x, y, width, height)), 10, 170);
 				
 }
 
