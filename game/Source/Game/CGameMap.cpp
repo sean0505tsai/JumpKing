@@ -65,8 +65,8 @@ int CGameMap::bottomCollision(int x, int y, int width, int height) {
 bool CGameMap::leftCollision(int x, int y, int height) {
 	bool flag = false;
 	int Xtarget = ((x - 1) / 16);              // 16*16 pixel為一格, 960*720 pixel為一關, 統一先上移720 pixel
-	int Ystart = y / 16;							// 將實際座標轉換為地圖陣列座標
-	int Yend = (y + height - 1) / 16;
+	int Ystart = (((y - 720) / 16) + 1934);							// 將實際座標轉換為地圖陣列座標
+	int Yend = ((((y - 720) + height) - 1) / 16) + 1934;
 	for (int i = Ystart; i <= Yend; i++) {
 		if (mapArray[i][Xtarget] != 0) flag = true;	// 檢查是否碰撞, mapArray[y][x]
 	}
@@ -77,8 +77,8 @@ bool CGameMap::leftCollision(int x, int y, int height) {
 bool CGameMap::rightCollision(int x, int y, int width, int height) {
 	bool flag = false;
 	int Xtarget = ((x + width) / 16);              // 16*16 pixel為一格, 960*720 pixel為一關, 統一先上移720 pixel
-	int Ystart = y / 16;							// 將實際座標轉換為地圖陣列座標
-	int Yend = ( (y + height) - 1) / 16;
+	int Ystart = (((y - 720) / 16) + 1934);							// 將實際座標轉換為地圖陣列座標
+	int Yend = ((((y - 720) + height) - 1) / 16) + 1934;
 	for (int i = Ystart; i <= Yend; i++) {
 		if (mapArray[i][Xtarget] != 0) flag = true;	// 檢查是否碰撞, mapArray[y][x]
 	}

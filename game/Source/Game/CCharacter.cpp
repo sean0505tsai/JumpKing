@@ -122,21 +122,21 @@ void CCharacter::onMove() {
 		4: 跳躍蓄力		
 	*/
 	
-	const int STEP_SIZE = 3;
+	const int STEP_SIZE = 5;
 
 	// 物理狀態
-	if (isMovingLeft && bottomCollision != 0) {
+	if (isMovingLeft && leftCollision != true) {
 		X -= STEP_SIZE;
 		bitmapShow = 3;
 	}
-	if (isMovingRight) {
+	if (isMovingRight && rightCollision != true) {
 		X += STEP_SIZE;
 		bitmapShow = 2;
 	}
-	if (isMovingUp) {		// dev
+	if (isMovingUp && topCollision != true) {		// dev
 		Yactual -= STEP_SIZE;
 	}
-	if (isMovingDown) {		// dev
+	if (isMovingDown && bottomCollision != 0) {		// dev
 		Yactual += STEP_SIZE;
 	}
 	if (isCharging) {

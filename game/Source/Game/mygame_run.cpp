@@ -14,6 +14,9 @@
 
 using namespace game_framework;
 
+const int CHARACTER_WIDTH = 72;
+const int CHARACTER_HEIGHT = 72;
+
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 /////////////////////////////////////////////////////////////////////////////
@@ -34,13 +37,13 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 {
 	int x = character.getX();
 	int y = character.getYactual();
-	int width = characterResource[character.getResourceShow()].GetWidth();
-	int height = characterResource[character.getResourceShow()].GetHeight();
+	// int width = characterResource[character.getResourceShow()].GetWidth();
+	// int height = characterResource[character.getResourceShow()].GetHeight();
 
-	character.setTopCollision( gameMap.topCollision( x, y, width));
-	character.setBottomCollision( gameMap.bottomCollision(x, y, width, height));
-	character.setLeftCollision( gameMap.leftCollision( x, y, height));
-	character.setRightCollision( gameMap.rightCollision(x, y, width, height));
+	character.setTopCollision( gameMap.topCollision( x, y, CHARACTER_WIDTH));
+	character.setBottomCollision( gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT));
+	character.setLeftCollision( gameMap.leftCollision( x, y, CHARACTER_HEIGHT));
+	character.setRightCollision( gameMap.rightCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT));
 
 
 	if (isPause == false) {			// 暫停狀態不運算物理 所有物件不動
@@ -256,12 +259,13 @@ void CGameStateRun::OnShow()
 	drawText("X:" + std::to_string(character.getX()), 10, 50);
 	drawText("Yactual:" + std::to_string(character.getYactual()), 10, 70);
 	drawText("Yshow: " + std::to_string(character.getYshow()), 10, 90);
-	drawText("top collision: " + std::to_string(gameMap.topCollision(x, y, width)), 10, 110);
-	drawText("bottom collisioon" + std::to_string(gameMap.bottomCollision(x, y, width, height)), 10, 130);
-	drawText("left collisioon" + std::to_string(gameMap.leftCollision(x, y, height)), 10, 150);
-	drawText("right collisioon" + std::to_string(gameMap.rightCollision(x, y, width, height)), 10, 170);
+	drawText("top collision: " + std::to_string(gameMap.topCollision(x, y, CHARACTER_WIDTH)), 10, 110);
+	drawText("bottom collision" + std::to_string(gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT)), 10, 130);
+	drawText("left collision" + std::to_string(gameMap.leftCollision(x, y, CHARACTER_HEIGHT)), 10, 150);
+	drawText("right collision" + std::to_string(gameMap.rightCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT)), 10, 170);
 	drawText("top left target Y:" + std::to_string(((((y - 720) - 1) / 16) + 1934)), 10, 190);
 	drawText("top left target X:" + std::to_string((x - 1) / 16), 10, 210);
+
 }
 
 void CGameStateRun::pause()
