@@ -260,7 +260,8 @@ void CGameStateRun::OnShow()
 	drawText("bottom collisioon" + std::to_string(gameMap.bottomCollision(x, y, width, height)), 10, 130);
 	drawText("left collisioon" + std::to_string(gameMap.leftCollision(x, y, height)), 10, 150);
 	drawText("right collisioon" + std::to_string(gameMap.rightCollision(x, y, width, height)), 10, 170);
-				
+	drawText("top left target Y:" + std::to_string(((((y - 720) - 1) / 16) + 1934)), 10, 190);
+	drawText("top left target X:" + std::to_string((x - 1) / 16), 10, 210);
 }
 
 void CGameStateRun::pause()
