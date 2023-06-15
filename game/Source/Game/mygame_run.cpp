@@ -250,9 +250,8 @@ void CGameStateRun::OnShow()
 
 	int x = character.getX();
 	int y = character.getYactual();
-	int width = characterResource[character.getResourceShow()].GetWidth();
-	int height = characterResource[character.getResourceShow()].GetHeight();
-
+	// int width = characterResource[character.getResourceShow()].GetWidth();
+	// int height = characterResource[character.getResourceShow()].GetHeight();
 
 	// dev mode
 	drawText("Resource:" + std::to_string(character.getResourceShow()), 10, 30);
@@ -260,9 +259,9 @@ void CGameStateRun::OnShow()
 	drawText("Yactual:" + std::to_string(character.getYactual()), 10, 70);
 	drawText("Yshow: " + std::to_string(character.getYshow()), 10, 90);
 	drawText("top collision: " + std::to_string(gameMap.topCollision(x, y, CHARACTER_WIDTH)), 10, 110);
-	drawText("bottom collision" + std::to_string(gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT)), 10, 130);
-	drawText("left collision" + std::to_string(gameMap.leftCollision(x, y, CHARACTER_HEIGHT)), 10, 150);
-	drawText("right collision" + std::to_string(gameMap.rightCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT)), 10, 170);
+	drawText("bottom collision: " + std::to_string(gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT)), 10, 130);
+	drawText("left collision: " + std::to_string(gameMap.leftCollision(x, y, CHARACTER_HEIGHT)), 10, 150);
+	drawText("right collision: " + std::to_string(gameMap.rightCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT)), 10, 170);
 	drawText("top left target Y:" + std::to_string(((((y - 720) - 1) / 16) + 1934)), 10, 190);
 	drawText("top left target X:" + std::to_string((x - 1) / 16), 10, 210);
 

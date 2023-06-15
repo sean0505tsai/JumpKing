@@ -24,6 +24,7 @@ namespace game_framework {
 		int getX();
 		int getYshow();		// 提供mygame_run顯示用座標
 		int getYactual();	// 提供CGameMap判斷位置用座標
+		int getVelocityY();
 
 		void nextResource();
 		void previousResource();
@@ -61,15 +62,14 @@ namespace game_framework {
 		bool rightCollision;	// 右碰撞
 
 		// 角色面對方向
-		/*
-		enum characterFacing {
-			left, 
-			right
+		enum direction_flag {
+			LEFT, 
+			RIGHT
 		};
-		*/
 
 		int state;
-		bool isFacingRight;		// 是否面向右邊
+		int direction;
+		// bool isFacingRight;		// 是否面向右邊
 
 		// 座標相關
 		int X;			// X座標
@@ -83,7 +83,7 @@ namespace game_framework {
 		int acceleration;	// 跳躍加速度
 		int velocityY;		// 垂直速度
 		int velocityX;		// 水平速度
-		const int gravity = 2;		// 重力加速度
+		const int gravity = 1;		// 重力加速度
 
 		// 顯示哪張圖
 		int bitmapShow;

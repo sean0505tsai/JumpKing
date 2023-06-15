@@ -15,7 +15,7 @@ void CCharacter::init() {
 	Yactual = 580;				// 實際Y座標
 	Yshow = 580;				// 顯示用Y座標
 
-	isFacingRight = true;		// 預設面向右
+	direction = RIGHT;			// 預設面向右
 	acceleration = 0;
 	acceleration = 0;
 	velocityX = 0;
@@ -34,9 +34,9 @@ void CCharacter::init() {
 	hitWhenFalling = false;		// 落下途中遭受撞擊
 
 	topCollision = false;		// 上方碰撞
-	bottomCollision = 1;	// 下方碰撞
-	leftCollision = true;		// 左碰撞
-	rightCollision = true;	// 右碰撞
+	bottomCollision = 0;	// 下方碰撞
+	leftCollision = false;		// 左碰撞
+	rightCollision = false;	// 右碰撞
 }
 
 int CCharacter::getResourceShow() {
@@ -45,16 +45,16 @@ int CCharacter::getResourceShow() {
 }
 
 void CCharacter::setMoveLeft(bool flag) {
-	isFacingRight = false;
-	if (bottomCollision == 1 && !isCharging) {
+	direction = LEFT;
+	if (/*bottomCollision == 1 &&*/ !isCharging) {
 		isMovingLeft = flag;					// 在平面上才能往左移動
 	}
 	else isMovingLeft = false;
 }
 
 void CCharacter::setMoveRight(bool flag) {
-	isFacingRight = true;
-	if (bottomCollision == 1 && !isCharging) {
+	direction = RIGHT;
+	if (/*bottomCollision == 1 &&*/ !isCharging) {
 		isMovingRight = flag;					// 在平面上才能往右移動
 	}
 	else isMovingRight = false;
@@ -97,12 +97,11 @@ void CCharacter::onShow() {
 	*/
 
 	if (isCharging) bitmapShow = 4;
-	
-	if (!isFacingRight) {		// 面向左
+	else if (direction == LEFT) {		// 面向左
 		if (isMovingLeft) bitmapShow = 3;
 		else bitmapShow = 1;
 	}
-	else if (isFacingRight) {	// 面向右
+	else if (direction == RIGHT) {	// 面向右
 		if (isMovingRight) bitmapShow = 2;
 		else bitmapShow = 0;
 	}
@@ -112,8 +111,6 @@ void CCharacter::onShow() {
 
 void CCharacter::onMove() {
 	
-	if (Yactual < 580) bottomCollision = 1;
-
 	/*	角色動畫:
 		0: 預設向右圖	5: 向右跳躍圖		9: 落下途中受撞擊_右
 		1: 預設向左圖	6: 向右跳躍圖		10: 落下途中受撞擊_左
@@ -133,14 +130,23 @@ void CCharacter::onMove() {
 		X += STEP_SIZE;
 		bitmapShow = 2;
 	}
-	if (isMovingUp && topCollision != true) {		// dev
+	if (isMovingUp && topCollision == false) {		// dev
 		Yactual -= STEP_SIZE;
 	}
-	if (isMovingDown && bottomCollision != 0) {		// dev
+	if (isMovingDown && bottomCollision == 0) {		// dev
 		Yactual += STEP_SIZE;
 	}
 	if (isCharging) {
 		bitmapShow = 4;
+	}
+	if (bottomCollision == 0 && isMovingUp == false) {
+		while (velocityY < 15) {
+			velocityY++;
+		}
+		Yactual += velocityY;		// gravity
+	}
+	if (bottomCollision != 0) {
+		velocityY = 0;
 	}
 }
 
@@ -163,6 +169,10 @@ int CCharacter::getYshow() {
 
 int CCharacter::getYactual() {
 	return Yactual;
+}
+
+int CCharacter::getVelocityY() {
+
 }
 
 // dev mode 
