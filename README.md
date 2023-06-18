@@ -31,7 +31,7 @@ Topic: [Jump King](https://store.steampowered.com/app/1061090/Jump_King/?l=tchin
 - [x] Load Resources(image)
 - [x] Map Switching
 - [x] Map Matrix
-- [x] Collision Determination
+- [x] Collision Check
 ---
 ## Debug Logs
 - C2848 (檔案編碼問題): [CSDN](https://blog.csdn.net/H_O_W_E/article/details/105114971)
