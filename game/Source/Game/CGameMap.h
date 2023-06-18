@@ -12,10 +12,10 @@ namespace game_framework {
 		void prevMap();
 		int getCurrentMap();
 
-		bool topCollision(int x, int y, int width);		// 上方碰撞
-		int bottomCollision(int x, int y, int width, int height);		// 下方碰撞
-		bool leftCollision(int x, int y, int height);		// 左方碰撞
-		bool rightCollision(int x, int y, int width, int height);		// 右方碰撞
+		int topCollision(int x, int y, int width, int pixelsToCheck);		// 上方碰撞
+		int bottomCollision(int x, int y, int width, int height, int pixelsToCheck);		// 下方碰撞
+		int leftCollision(int x, int y, int height, int pixelsToCheck);		// 左方碰撞
+		int rightCollision(int x, int y, int width, int height, int pixelsToCheck);		// 右方碰撞
 
 	protected:
 

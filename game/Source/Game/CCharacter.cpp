@@ -12,12 +12,11 @@ void CCharacter::init() {
 	// state = motionless;
 	bitmapShow = 0;				// 顯示哪張圖
 	X = 456;						// X座標
-	Yactual = 580;				// 實際Y座標
+	Yactual = 580;				// 實際Y座標,580 demo:-41036
 	Yshow = 580;				// 顯示用Y座標
 
 	direction = RIGHT;			// 預設面向右
-	acceleration = 0;
-	acceleration = 0;
+	initialVelocity = 0;
 	velocityX = 0;
 	velocityY = 0;
 
@@ -33,10 +32,10 @@ void CCharacter::init() {
 	isFalling = false;			// 初速被重力減完後觸發
 	hitWhenFalling = false;		// 落下途中遭受撞擊
 
-	topCollision = false;		// 上方碰撞
+	topCollision = 0;		// 上方碰撞
 	bottomCollision = 0;	// 下方碰撞
-	leftCollision = false;		// 左碰撞
-	rightCollision = false;	// 右碰撞
+	leftCollision = 0;		// 左碰撞
+	rightCollision = 0;	// 右碰撞
 }
 
 int CCharacter::getResourceShow() {
@@ -49,7 +48,7 @@ void CCharacter::setMoveLeft(bool flag) {
 	if (/*bottomCollision == 1 &&*/ !isCharging) {
 		isMovingLeft = flag;					// 在平面上才能往左移動
 	}
-	else isMovingLeft = false;
+	// else isMovingLeft = false;
 }
 
 void CCharacter::setMoveRight(bool flag) {
@@ -57,7 +56,7 @@ void CCharacter::setMoveRight(bool flag) {
 	if (/*bottomCollision == 1 &&*/ !isCharging) {
 		isMovingRight = flag;					// 在平面上才能往右移動
 	}
-	else isMovingRight = false;
+	// else isMovingRight = false;
 }
 
 void CCharacter::setMoveUp(bool flag) {
@@ -69,20 +68,13 @@ void CCharacter::setMoveDown(bool flag) {
 }
 
 void CCharacter::jumpCharge(bool flag) {
-	if (flag == false) {
-		isCharging = false;
-		isRising = true;
-		jump();
-	}
-	else if (bottomCollision == 1) {
-		isCharging = flag;
-		if(acceleration <20) acceleration++;	// 加速度<20則增加，最大為20
-	}
+	isCharging = flag;
 }
 
 void CCharacter::jump() {
-	velocityY = acceleration;					// 設置速度
-	acceleration = 0;							// 重設加速度
+	velocityY = initialVelocity;					// 設置速度
+	isRising = true;
+	initialVelocity = 0;							// 重設加速度
 }
 
 
@@ -90,23 +82,26 @@ void CCharacter::onShow() {
 
 	/*	角色動畫:
 		0: 預設向右圖	5: 向右跳躍圖		9: 落下途中受撞擊_右
-		1: 預設向左圖	6: 向右跳躍圖		10: 落下途中受撞擊_左
+		1: 預設向左圖	6: 向左跳躍圖		10: 落下途中受撞擊_左
 		2: 向右走動畫	7: 向右落下圖		11: 從高處落地_右
 		3: 向左走動畫	8: 向左落下圖		12: 從高處落地_左
 		4: 跳躍蓄力
 	*/
 
 	if (isCharging) bitmapShow = 4;
-	else if (direction == LEFT) {		// 面向左
-		if (isMovingLeft) bitmapShow = 3;
-		else bitmapShow = 1;
-	}
-	else if (direction == RIGHT) {	// 面向右
-		if (isMovingRight) bitmapShow = 2;
-		else bitmapShow = 0;
-	}
-	
-	
+	else {
+		if (direction == LEFT) {		// 面向左
+			if (isFalling) bitmapShow = 8;
+			else if (isRising) bitmapShow = 6;
+			else if (isMovingLeft) bitmapShow = 3;
+			else bitmapShow = 1;
+		}
+		else {							// 面向右
+			if (isRising) bitmapShow = 5;
+			if (isMovingRight) bitmapShow = 2;
+			else bitmapShow = 0;
+		}
+	}  	
 }
 
 void CCharacter::onMove() {
@@ -122,30 +117,59 @@ void CCharacter::onMove() {
 	const int STEP_SIZE = 5;
 
 	// 物理狀態
-	if (isMovingLeft && leftCollision != true) {
-		X -= STEP_SIZE;
-		bitmapShow = 3;
+	
+	// 向左移動
+	if (isMovingLeft && leftCollision != 1) {
+		if (leftCollision == 0) X -= STEP_SIZE;
+		else X -= (leftCollision - 1);
+		// bitmapShow = 3;
 	}
-	if (isMovingRight && rightCollision != true) {
-		X += STEP_SIZE;
-		bitmapShow = 2;
+
+	// 向右移動
+	if (isMovingRight && rightCollision != 1) {
+		if (rightCollision == 0) X += STEP_SIZE;
+		else X += (rightCollision - 1);
+		// bitmapShow = 2;
 	}
-	if (isMovingUp && topCollision == false) {		// dev
-		Yactual -= STEP_SIZE;
+
+	// 向上移動
+	if (isMovingUp && topCollision != 1) {		// dev
+		if(topCollision == 0) Yactual -= STEP_SIZE;
+		else Yactual -= (topCollision - 1);
 	}
-	if (isMovingDown && bottomCollision == 0) {		// dev
-		Yactual += STEP_SIZE;
+
+	// 向下移動
+	if (isMovingDown && bottomCollision != 1) {		// dev
+		if (bottomCollision == 0) Yactual += STEP_SIZE;
+		else Yactual += (bottomCollision - 1);
 	}
+
+	// 跳躍蓄力
 	if (isCharging) {
-		bitmapShow = 4;
-	}
-	if (bottomCollision == 0 && isMovingUp == false) {
-		while (velocityY < 15) {
-			velocityY++;
+		if (bottomCollision == 1) {
+			if(velocityY < 25) velocityY++;
 		}
-		Yactual += velocityY;		// gravity
 	}
-	if (bottomCollision != 0) {
+
+	// 重力
+	if (bottomCollision != 1 && isMovingUp == false) {
+		
+
+		
+		while (velocityY < 20) {
+			velocityY++;		// 重力
+		}
+
+		if (bottomCollision == 0) {
+			Yactual += velocityY;
+		}
+		else {
+			Yactual += (bottomCollision - 1);
+		}
+		
+	}
+
+	if (bottomCollision == 1) {			// 下方碰撞
 		velocityY = 0;
 	}
 }
@@ -172,7 +196,7 @@ int CCharacter::getYactual() {
 }
 
 int CCharacter::getVelocityY() {
-
+	return velocityY;
 }
 
 // dev mode 
@@ -186,7 +210,7 @@ void CCharacter::previousResource() {
 }
 
 
-void CCharacter::setTopCollision(bool flag) {
+void CCharacter::setTopCollision(int flag) {
 	topCollision = flag;
 }
 
@@ -194,10 +218,10 @@ void CCharacter::setBottomCollision(int flag) {
 	bottomCollision = flag;
 }
 
-void CCharacter::setLeftCollision(bool flag) {
+void CCharacter::setLeftCollision(int flag) {
 	leftCollision = flag;
 }
 
-void CCharacter::setRightCollision(bool flag) {
+void CCharacter::setRightCollision(int flag) {
 	rightCollision = flag;
 }

@@ -37,14 +37,33 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 {
 	int x = character.getX();
 	int y = character.getYactual();
+	int velocityY = character.getVelocityY();			// 正往下, 負往上
 	// int width = characterResource[character.getResourceShow()].GetWidth();
 	// int height = characterResource[character.getResourceShow()].GetHeight();
 
-	character.setTopCollision( gameMap.topCollision( x, y, CHARACTER_WIDTH));
-	character.setBottomCollision( gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT));
-	character.setLeftCollision( gameMap.leftCollision( x, y, CHARACTER_HEIGHT));
-	character.setRightCollision( gameMap.rightCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT));
-
+	if (isCheating) {
+		/*
+		character.setTopCollision(0);
+		character.setBottomCollision(0);
+		character.setLeftCollision(0);
+		character.setRightCollision(0);
+		*/
+	}
+	else {
+		character.setTopCollision(gameMap.topCollision(x, y, CHARACTER_WIDTH, 5));
+		//character.setBottomCollision(gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, 5));
+		
+		if (velocityY > 0) {	// Y速度向下
+			character.setBottomCollision(gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, velocityY));
+		}
+		else {					// Y速度向上
+			character.setBottomCollision(gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, 1));
+		}
+		
+		character.setLeftCollision(gameMap.leftCollision(x, y, CHARACTER_HEIGHT, 5));
+		character.setRightCollision(gameMap.rightCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, 5));
+	}
+	
 
 	if (isPause == false) {			// 暫停狀態不運算物理 所有物件不動
 		character.onMove();
@@ -55,6 +74,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
 	isPause = false;
+	isCheating = false;
 
 	// character init
 	character.init();
@@ -161,13 +181,28 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			character.jumpCharge(true);
 		}
 
-		if (nChar == VK_UP) {
-			character.setMoveUp(true);		// dev mode
+		if (isCheating) {
+
+			if (nChar == VK_UP) {
+				character.setMoveUp(true);		// dev mode
+			}
+
+			if (nChar == VK_DOWN) {
+				character.setMoveDown(true);	// dev mode
+			}
+
+		}
+		else {
+
+			if (nChar == VK_UP) {
+				character.setMoveUp(true);		// dev mode
+			}
+
+			if (nChar == VK_DOWN) {
+				character.setMoveDown(true);	// dev mode
+			}
 		}
 
-		if (nChar == VK_DOWN) {
-			character.setMoveDown(true);	// dev mode
-		}
 
 		if (nChar == VK_NUMPAD8) {
 
@@ -185,6 +220,17 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 		if (nChar == 0x4B) {		// K
 			character.nextResource();		// 下一張角色圖
+		}
+
+		if (nChar == 0x57) {			// W
+			cheat();
+			if (nChar == 0x41) {		// A
+				if (nChar == 0x53) {	// S
+					if (nChar == 0x44) {// D
+
+					}
+				}
+			}
 		}
 	}
 
@@ -207,14 +253,25 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 		character.jumpCharge(false);
 	}
 
-	if (nChar == VK_UP) {
-		character.setMoveUp(false);		// dev mode
-	}
+	// 作弊/開發模式
+	if (isCheating) {
+		if (nChar == VK_UP) {
+			character.setMoveUp(false);		// dev mode
+		}
 
-	if (nChar == VK_DOWN) {
-		character.setMoveDown(false);	// dev mode
+		if (nChar == VK_DOWN) {
+			character.setMoveDown(false);	// dev mode
+		}
 	}
+	else {
+		if (nChar == VK_UP) {
+			character.setMoveUp(false);		// dev mode
+		}
 
+		if (nChar == VK_DOWN) {
+			character.setMoveDown(false);	// dev mode
+		}
+	}
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -239,6 +296,7 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 
 void CGameStateRun::OnShow()
 {
+	character.onShow();
 	gameMap.setMap(character.getYactual());
 	mapResource[gameMap.getCurrentMap()].ShowBitmap();
 	characterResource[character.getResourceShow()].SetTopLeft(character.getX(), character.getYshow());
@@ -254,16 +312,22 @@ void CGameStateRun::OnShow()
 	// int height = characterResource[character.getResourceShow()].GetHeight();
 
 	// dev mode
-	drawText("Resource:" + std::to_string(character.getResourceShow()), 10, 30);
+	// drawText("Resource:" + std::to_string(character.getResourceShow()), 10, 30);
+	
 	drawText("X:" + std::to_string(character.getX()), 10, 50);
 	drawText("Yactual:" + std::to_string(character.getYactual()), 10, 70);
 	drawText("Yshow: " + std::to_string(character.getYshow()), 10, 90);
-	drawText("top collision: " + std::to_string(gameMap.topCollision(x, y, CHARACTER_WIDTH)), 10, 110);
-	drawText("bottom collision: " + std::to_string(gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT)), 10, 130);
-	drawText("left collision: " + std::to_string(gameMap.leftCollision(x, y, CHARACTER_HEIGHT)), 10, 150);
-	drawText("right collision: " + std::to_string(gameMap.rightCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT)), 10, 170);
-	drawText("top left target Y:" + std::to_string(((((y - 720) - 1) / 16) + 1934)), 10, 190);
-	drawText("top left target X:" + std::to_string((x - 1) / 16), 10, 210);
+	drawText("top collision: " + std::to_string(gameMap.topCollision(x, y, CHARACTER_WIDTH, 5)), 10, 110);
+	drawText("bottom collision: " + std::to_string(gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, 5)), 10, 130);
+	drawText("left collision: " + std::to_string(gameMap.leftCollision(x, y, CHARACTER_HEIGHT, 5)), 10, 150);
+	drawText("right collision: " + std::to_string(gameMap.rightCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, 5)), 10, 170);
+	//drawText("top left target Y:" + std::to_string(((((y - 720) - 1) / 16) + 1934)), 10, 190);
+	//drawText("top left target X:" + std::to_string((x - 1) / 16), 10, 210);
+	drawText("velocityY: " + std::to_string(character.getVelocityY()), 10, 230);
+	
+	if (isCheating) {
+		drawText("Cheat Activated", 10, 690); 
+	}
 
 }
 
@@ -274,6 +338,15 @@ void CGameStateRun::pause()
 	}
 	else {
 		isPause = false;		// 解除暫停狀態
+	}
+}
+
+void CGameStateRun::cheat() {
+	if (!isCheating) {
+		isCheating = true;
+	}
+	else {
+		isCheating = false;
 	}
 }
 

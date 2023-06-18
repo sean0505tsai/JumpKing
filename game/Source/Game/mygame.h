@@ -101,8 +101,10 @@ namespace game_framework {
 		const int animationSpeed = 150;
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
-		void pause();
-		bool isPause;
+		void pause();									// 暫停開關
+		void cheat();								// 作弊模式開關
+		bool isPause;									// 是否暫停
+		bool isCheating;									// 作弊模式是否開啟
 
 		CGameMap gameMap;
 		CMovingBitmap mapResource[43];

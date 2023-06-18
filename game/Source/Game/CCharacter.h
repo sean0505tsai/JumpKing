@@ -15,16 +15,17 @@ namespace game_framework {
 		void setMoveDown(bool flag);	// dev mode
 		void jumpCharge(bool flag);
 
-		void setTopCollision(bool flag);
+		void setTopCollision(int flag);
 		void setBottomCollision(int flag);
-		void setLeftCollision(bool flag);
-		void setRightCollision(bool flag);
+		void setLeftCollision(int flag);
+		void setRightCollision(int flag);
 		
 		void onShow();
 		int getX();
 		int getYshow();		// 提供mygame_run顯示用座標
 		int getYactual();	// 提供CGameMap判斷位置用座標
 		int getVelocityY();
+		int getVelocityX();
 
 		void nextResource();
 		void previousResource();
@@ -56,10 +57,10 @@ namespace game_framework {
 		bool isFalling;			// 落下中
 		bool hitWhenFalling;	// 落下途中撞擊
 
-		bool topCollision;		// 上方碰撞
+		int topCollision;		// 上方碰撞
 		int bottomCollision;	// 下方碰撞, 0:無碰撞, 1:下方為平面, 2:下方為往右斜面, 3:下方為往左斜面
-		bool leftCollision;		// 左碰撞
-		bool rightCollision;	// 右碰撞
+		int leftCollision;		// 左碰撞
+		int rightCollision;	// 右碰撞
 
 		// 角色面對方向
 		enum direction_flag {
@@ -80,7 +81,7 @@ namespace game_framework {
 		const int width = 48;
 
 		// 移動速度相關
-		int acceleration;	// 跳躍加速度
+		int initialVelocity;	// 跳躍加速度
 		int velocityY;		// 垂直速度
 		int velocityX;		// 水平速度
 		const int gravity = 1;		// 重力加速度
