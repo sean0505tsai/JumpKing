@@ -38,6 +38,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	int x = character.getX();
 	int y = character.getYactual();
 	int velocityY = character.getVelocityY();			// 正往下, 負往上
+	int velocityX = character.getVelocityX();
 	// int width = characterResource[character.getResourceShow()].GetWidth();
 	// int height = characterResource[character.getResourceShow()].GetHeight();
 
@@ -60,8 +61,9 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			character.setBottomCollision(gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, 1));
 		}
 		
-		character.setLeftCollision(gameMap.leftCollision(x, y, CHARACTER_HEIGHT, 5));
-		character.setRightCollision(gameMap.rightCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, 5));
+		character.setLeftCollision(gameMap.leftCollision(x, y, CHARACTER_HEIGHT, velocityX));
+		character.setRightCollision(gameMap.rightCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, velocityX));
+
 	}
 	
 
@@ -184,34 +186,23 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		if (isCheating) {
 
 			if (nChar == VK_UP) {
-				character.setMoveUp(true);		// dev mode
+				character.setMoveUp(true);		// cheat mode
 			}
 
 			if (nChar == VK_DOWN) {
-				character.setMoveDown(true);	// dev mode
+				character.setMoveDown(true);	// cheat mode
 			}
 
 		}
 		else {
 
 			if (nChar == VK_UP) {
-				character.setMoveUp(true);		// dev mode
+				character.setMoveUp(true);		// cheat mode
 			}
 
 			if (nChar == VK_DOWN) {
-				character.setMoveDown(true);	// dev mode
+				character.setMoveDown(true);	// cheat mode
 			}
-		}
-
-
-		if (nChar == VK_NUMPAD8) {
-
-			// gameMap.nextMap();		// next map (dev mode)
-		}
-
-		if (nChar == VK_NUMPAD2) {
-
-			// gameMap.prevMap();		// previous map (dev mode)
 		}
 
 		if (nChar == 0x4A) {		// J
@@ -324,6 +315,8 @@ void CGameStateRun::OnShow()
 	//drawText("top left target Y:" + std::to_string(((((y - 720) - 1) / 16) + 1934)), 10, 190);
 	//drawText("top left target X:" + std::to_string((x - 1) / 16), 10, 210);
 	drawText("velocityY: " + std::to_string(character.getVelocityY()), 10, 230);
+	drawText("velocityX: " + std::to_string(character.getVelocityX()), 10, 250);
+	drawText("InitialVelocity: " + std::to_string(character.getInitialVelocity()), 10, 270);
 	
 	if (isCheating) {
 		drawText("Cheat Activated", 10, 690); 

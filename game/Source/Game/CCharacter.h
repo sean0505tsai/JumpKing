@@ -26,6 +26,7 @@ namespace game_framework {
 		int getYactual();	// 提供CGameMap判斷位置用座標
 		int getVelocityY();
 		int getVelocityX();
+		int getInitialVelocity();
 
 		void nextResource();
 		void previousResource();

@@ -44,17 +44,17 @@ int CCharacter::getResourceShow() {
 }
 
 void CCharacter::setMoveLeft(bool flag) {
-	direction = LEFT;
-	if (/*bottomCollision == 1 &&*/ !isCharging) {
-		isMovingLeft = flag;					// 在平面上才能往左移動
+	isMovingLeft = flag;
+	if (bottomCollision == 1 && !isCharging) {
+		direction = LEFT;			// 在平面上則變更為面對左
 	}
 	// else isMovingLeft = false;
 }
 
 void CCharacter::setMoveRight(bool flag) {
-	direction = RIGHT;
-	if (/*bottomCollision == 1 &&*/ !isCharging) {
-		isMovingRight = flag;					// 在平面上才能往右移動
+	isMovingRight = flag;
+	if (bottomCollision == 1 && !isCharging) {
+		direction = RIGHT;			// 在平面上則變更為面向右
 	}
 	// else isMovingRight = false;
 }
@@ -69,13 +69,9 @@ void CCharacter::setMoveDown(bool flag) {
 
 void CCharacter::jumpCharge(bool flag) {
 	if (bottomCollision == 1) {
-		if (flag) {
-			isCharging = flag;
-		}
-		else {
-			jump();
-		}
+		if (bottomCollision == 1) isCharging = flag;
 	}
+	else isCharging = false;
 }
 
 void CCharacter::jump() {
@@ -99,13 +95,13 @@ void CCharacter::onShow() {
 		if (direction == LEFT) {		// 面向左
 			if (velocityY > 0) bitmapShow = 8;
 			else if (velocityY < 0) bitmapShow = 6;
-			else if (isMovingLeft) bitmapShow = 3;
+			else if (velocityX < 0) bitmapShow = 3;
 			else if(velocityY == 0 && bottomCollision == 1) bitmapShow = 1;
 		}
 		else {							// 面向右
 			if (velocityY > 0) bitmapShow = 7;
 			else if (velocityY < 0) bitmapShow = 5;
-			else if (isMovingRight) bitmapShow = 2;
+			else if (velocityX > 0) bitmapShow = 2;
 			else if (velocityY == 0 && bottomCollision == 1) bitmapShow = 0;
 		}
 	}  	
@@ -124,18 +120,67 @@ void CCharacter::onMove() {
 	const int STEP_SIZE = 5;
 
 	// 物理狀態
+
+	// gravity
+	velocityY += gravity;
+	
+	// 在地面上
+	if (bottomCollision == 1) {
+		velocityY -= gravity;		// 地面反作用力
+		if (isMovingRight) velocityX += STEP_SIZE;		// 向左移動
+		if (isMovingLeft) velocityX -= STEP_SIZE;		// 向右移動
+	}
+	else {
+
+	}
+
+	if (velocityX > 0) {
+		// 向右移動
+	}
+	else if (velocityX < 0) {
+		// 向左移動
+	}
+
+	/*
+	// 垂直運動狀態
+	if (velocityY > 0) {	// 下降狀態
+		if (bottomCollision == 0) Yactual += velocityY;
+		else {
+			Yactual += (bottomCollision - 1);
+			velocityY = 0;
+		}
+
+	}
+	else if (velocityY < 0) {	// 上升狀態
+		if (topCollision == 0) Yactual += velocityY;
+		else {
+			Yactual += (topCollision - 1);
+			velocityY = 0;
+		}
+	}
+
+	if (leftCollision == 1 || rightCollision == 1) velocityX = 0;
+
+	// 水平運動狀態
+	if (velocityX > 0) {	// 向右移動
+		if (rightCollision == 0) X += velocityX;
+		else if (rightCollision != 1) X += rightCollision;
+	}
+	else if (velocityX < 0) {		// 向左移動
+		if (leftCollision == 0) X += velocityX;
+		else if (leftCollision != 1) X += leftCollision;
+	}
+
 	
 	// 向左移動
 	if (isMovingLeft && leftCollision != 1) {
-		if (leftCollision == 0) X -= STEP_SIZE;
-		else X -= (leftCollision - 1);
+		if (leftCollision == 0) velocityX = -1*STEP_SIZE;
 		// bitmapShow = 3;
 	}
 
 	// 向右移動
 	if (isMovingRight && rightCollision != 1) {
-		if (rightCollision == 0) X += STEP_SIZE;
-		else X += (rightCollision - 1);
+		if (rightCollision == 0) velocityX = STEP_SIZE;
 		// bitmapShow = 2;
 	}
 
@@ -155,22 +200,8 @@ void CCharacter::onMove() {
 
 	// 重力(有上限), v = g*t
 	if(velocityY < 50) velocityY += gravity;
-
-	// 地面反作用力, f = f'
-	if (bottomCollision == 1) velocityY -= gravity;
-
-	// 運動狀態
-	if (velocityY > 0) {	// 下降狀態
-		if(bottomCollision == 0) Yactual += velocityY;
-		else {
-			Yactual += (bottomCollision - 1);
-			velocityY = 0;
-		}
-			
-	}
-	else if (velocityY < 0) {	// 上升狀態
-
-	}
+	*/
+	
 	
 
 	/*
@@ -255,4 +286,12 @@ void CCharacter::setLeftCollision(int flag) {
 
 void CCharacter::setRightCollision(int flag) {
 	rightCollision = flag;
+}
+
+int CCharacter::getVelocityX() {
+	return velocityX;
+}
+
+int CCharacter::getInitialVelocity() {
+	return initialVelocity;
 }
