@@ -61,9 +61,15 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			character.setBottomCollision(gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, 1));
 		}
 		
-		character.setLeftCollision(gameMap.leftCollision(x, y, CHARACTER_HEIGHT, velocityX));
-		character.setRightCollision(gameMap.rightCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, velocityX));
-
+		if (velocityX > 0) {
+			character.setRightCollision(gameMap.rightCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, velocityX));
+			character.setLeftCollision(gameMap.leftCollision(x, y, CHARACTER_HEIGHT, 1));
+		}
+		else {
+			character.setRightCollision(gameMap.rightCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, 1));
+			character.setLeftCollision(gameMap.leftCollision(x, y, CHARACTER_HEIGHT, (-1*velocityX)));
+		}
+		
 	}
 	
 

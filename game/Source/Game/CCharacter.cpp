@@ -69,13 +69,17 @@ void CCharacter::setMoveDown(bool flag) {
 
 void CCharacter::jumpCharge(bool flag) {
 	if (bottomCollision == 1) {
-		if (bottomCollision == 1) isCharging = flag;
+		if(flag) isCharging = flag;
+		else {
+			jump();
+			isCharging = false;
+		}
 	}
-	else isCharging = false;
+	else isCharging = false;		// 不在地面上則不蓄力
 }
 
 void CCharacter::jump() {
-	velocityY = initialVelocity;					// 設置速度
+	velocityY = -1*initialVelocity;					// 設置速度
 	initialVelocity = 0;							// 重設加速度
 }
 
@@ -117,7 +121,7 @@ void CCharacter::onMove() {
 		4: 跳躍蓄力		
 	*/
 	
-	const int STEP_SIZE = 5;
+	const int STEP_SIZE = 7;
 
 	// 物理狀態
 
@@ -127,21 +131,34 @@ void CCharacter::onMove() {
 	// 在地面上
 	if (bottomCollision == 1) {
 		velocityY -= gravity;		// 地面反作用力
-		if (isMovingRight) velocityX += STEP_SIZE;		// 向左移動
-		if (isMovingLeft) velocityX -= STEP_SIZE;		// 向右移動
+
+		if (isCharging) {			// 跳躍蓄力
+			if (initialVelocity < 42) {
+				if (initialVelocity < 10) initialVelocity = 10;
+				else initialVelocity += 2;
+			}
+		}
+		else {
+			if (isMovingRight) velocityX = STEP_SIZE;		// 向左移動
+			else if (isMovingLeft) velocityX = -1 * STEP_SIZE;		// 向右移動
+			else velocityX = 0;
+		}
 	}
-	else {
+	else {		// 在空中
 
 	}
 
-	if (velocityX > 0) {
-		// 向右移動
+	// 水平運動狀態
+	if (velocityX > 0) {	// 向右移動
+		if (rightCollision == 0) X += velocityX;
+		else if (rightCollision != 1) X += (rightCollision-1);
 	}
-	else if (velocityX < 0) {
-		// 向左移動
+	else if (velocityX < 0) {		// 向左移動
+		if (leftCollision == 0) X += velocityX;
+		else if (leftCollision != 1) X -= (leftCollision - 1);
 	}
 
-	/*
+	
 	// 垂直運動狀態
 	if (velocityY > 0) {	// 下降狀態
 		if (bottomCollision == 0) Yactual += velocityY;
@@ -154,22 +171,14 @@ void CCharacter::onMove() {
 	else if (velocityY < 0) {	// 上升狀態
 		if (topCollision == 0) Yactual += velocityY;
 		else {
-			Yactual += (topCollision - 1);
+			Yactual -= (topCollision - 1);
 			velocityY = 0;
 		}
 	}
-
+	/*
 	if (leftCollision == 1 || rightCollision == 1) velocityX = 0;
 
-	// 水平運動狀態
-	if (velocityX > 0) {	// 向右移動
-		if (rightCollision == 0) X += velocityX;
-		else if (rightCollision != 1) X += rightCollision;
-	}
-	else if (velocityX < 0) {		// 向左移動
-		if (leftCollision == 0) X += velocityX;
-		else if (leftCollision != 1) X += leftCollision;
-	}
+	
 
 	
 	// 向左移動

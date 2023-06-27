@@ -85,7 +85,7 @@ namespace game_framework {
 		int initialVelocity;	// 跳躍加速度
 		int velocityY;		// 垂直速度
 		int velocityX;		// 水平速度
-		const int gravity = 2;		// 重力加速度
+		const int gravity = 3;		// 重力加速度
 
 		// 顯示哪張圖
 		int bitmapShow;
