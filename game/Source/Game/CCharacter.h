@@ -27,6 +27,10 @@ namespace game_framework {
 		int getVelocityY();
 		int getVelocityX();
 		int getInitialVelocity();
+		int getDirection();
+		bool getCharging();
+		bool getMovingRight();
+		bool getMovingLeft();
 
 		void nextResource();
 		void previousResource();

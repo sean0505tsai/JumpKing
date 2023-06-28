@@ -81,6 +81,12 @@ void CCharacter::jumpCharge(bool flag) {
 void CCharacter::jump() {
 	velocityY = -1*initialVelocity;					// 設置速度
 	initialVelocity = 0;							// 重設加速度
+	if (isMovingLeft && !isMovingRight) {
+		velocityX = -1* initialVelocity;
+	}
+	else if (isMovingRight && !isMovingLeft) {
+		velocityX = initialVelocity;
+	}
 }
 
 
@@ -133,6 +139,7 @@ void CCharacter::onMove() {
 		velocityY -= gravity;		// 地面反作用力
 
 		if (isCharging) {			// 跳躍蓄力
+			velocityX = 0;
 			if (initialVelocity < 42) {
 				if (initialVelocity < 10) initialVelocity = 10;
 				else initialVelocity += 2;
@@ -303,4 +310,20 @@ int CCharacter::getVelocityX() {
 
 int CCharacter::getInitialVelocity() {
 	return initialVelocity;
+}
+
+int CCharacter::getDirection() {
+	return direction;
+}
+
+bool CCharacter::getCharging() {
+	return isCharging;
+}
+
+bool CCharacter::getMovingLeft() {
+	return isMovingLeft;
+}
+
+bool CCharacter::getMovingRight() {
+	return isMovingRight;
 }

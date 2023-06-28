@@ -51,14 +51,16 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		*/
 	}
 	else {
-		character.setTopCollision(gameMap.topCollision(x, y, CHARACTER_WIDTH, 5));
+		
 		//character.setBottomCollision(gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, 5));
 		
 		if (velocityY > 0) {	// Y速度向下
 			character.setBottomCollision(gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, velocityY));
+			character.setTopCollision(gameMap.topCollision(x, y, CHARACTER_WIDTH, 1));
 		}
 		else {					// Y速度向上
 			character.setBottomCollision(gameMap.bottomCollision(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT, 1));
+			character.setTopCollision(gameMap.topCollision(x, y, CHARACTER_WIDTH, -1*velocityY));
 		}
 		
 		if (velocityX > 0) {
@@ -323,6 +325,10 @@ void CGameStateRun::OnShow()
 	drawText("velocityY: " + std::to_string(character.getVelocityY()), 10, 230);
 	drawText("velocityX: " + std::to_string(character.getVelocityX()), 10, 250);
 	drawText("InitialVelocity: " + std::to_string(character.getInitialVelocity()), 10, 270);
+	drawText("Direction: " + std::to_string(character.getDirection()), 10, 290);
+	//drawText("isCharging: " + std::to_string(character.getCharging()), 10, 310);
+	//drawText("isMovingLeft: " + std::to_string(character.getMovingLeft()), 10, 330);
+	//drawText("isMovingRight: " + std::to_string(character.getMovingRight()), 10, 350);
 	
 	if (isCheating) {
 		drawText("Cheat Activated", 10, 690); 
