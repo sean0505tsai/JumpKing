@@ -17,6 +17,7 @@ void CCharacter::init() {
 
 	direction = RIGHT;			// 預設面向右
 	initialVelocity = 0;
+	velocityJumpX = 0;
 	velocityX = 0;
 	velocityY = 0;
 
@@ -28,7 +29,7 @@ void CCharacter::init() {
 	isMovingRight = false;
 	
 	isCharging = false;			//跳躍蓄力, 在平面上才可觸發 
-	isRising = false;			// 跳躍後觸發
+	isJumping = false;			// 跳躍後觸發
 	isFalling = false;			// 初速被重力減完後觸發
 	hitWhenFalling = false;		// 落下途中遭受撞擊
 
@@ -69,7 +70,10 @@ void CCharacter::setMoveDown(bool flag) {
 
 void CCharacter::jumpCharge(bool flag) {
 	if (bottomCollision == 1) {
-		if(flag) isCharging = flag;
+		if (flag) {
+			isCharging = flag;
+			// isJumping = true;
+		}
 		else {
 			jump();
 			isCharging = false;
@@ -80,13 +84,14 @@ void CCharacter::jumpCharge(bool flag) {
 
 void CCharacter::jump() {
 	velocityY = -1*initialVelocity;					// 設置速度
-	initialVelocity = 0;							// 重設加速度
+	isJumping = true;
 	if (isMovingLeft && !isMovingRight) {
-		velocityX = -1* initialVelocity;
+		velocityX = -1* initialVelocity / 2;
 	}
 	else if (isMovingRight && !isMovingLeft) {
-		velocityX = initialVelocity;
+		velocityX = initialVelocity / 2;
 	}
+	initialVelocity = 0;							// 重設加速度
 }
 
 
@@ -146,9 +151,12 @@ void CCharacter::onMove() {
 			}
 		}
 		else {
-			if (isMovingRight) velocityX = STEP_SIZE;		// 向左移動
-			else if (isMovingLeft) velocityX = -1 * STEP_SIZE;		// 向右移動
-			else velocityX = 0;
+			if (!isJumping) {
+				if (isMovingRight) velocityX = STEP_SIZE;		// 向左移動
+				else if (isMovingLeft) velocityX = -1 * STEP_SIZE;		// 向右移動
+				else velocityX = 0;
+			}
+
 		}
 	}
 	else {		// 在空中
@@ -170,8 +178,10 @@ void CCharacter::onMove() {
 	if (velocityY > 0) {	// 下降狀態
 		if (bottomCollision == 0) Yactual += velocityY;
 		else {
+			// 落地前
 			Yactual += (bottomCollision - 1);
 			velocityY = 0;
+			isJumping = false;
 		}
 
 	}

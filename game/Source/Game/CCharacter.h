@@ -58,7 +58,7 @@ namespace game_framework {
 		bool isMovingUp;		// 往上移動中 (dev mode)
 		bool isMovingDown;		// 往下移動中 (dev mode)
 		bool isCharging;		// 跳躍蓄力中
-		bool isRising;			// 跳躍/上升中
+		bool isJumping;			// 跳躍中(含上升/下降)
 		bool isFalling;			// 落下中
 		bool hitWhenFalling;	// 落下途中撞擊
 
@@ -87,8 +87,9 @@ namespace game_framework {
 
 		// 移動速度相關
 		int initialVelocity;	// 跳躍加速度
-		int velocityY;		// 垂直速度
-		int velocityX;		// 水平速度
+		int velocityY;			// 垂直速度
+		int velocityX;			// 水平速度
+		int velocityJumpX;		// 跳躍時的水平速度
 		const int gravity = 3;		// 重力加速度
 
 		// 顯示哪張圖
