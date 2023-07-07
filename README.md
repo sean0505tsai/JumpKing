@@ -19,6 +19,8 @@ Topic: [Jump King](https://store.steampowered.com/app/1061090/Jump_King/?l=tchin
 ### Game Map
 - X
 
+### NPC
+
 ## To-Fix
 - [ ] Collision Check
 
